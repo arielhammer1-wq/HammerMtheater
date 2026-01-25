@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HammerMtheater", "HammerMtheater\HammerMtheater.csproj", "{DB40D769-74B6-406B-BD83-97227D234B41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB40D769-74B6-406B-BD83-97227D234B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB40D769-74B6-406B-BD83-97227D234B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB40D769-74B6-406B-BD83-97227D234B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB40D769-74B6-406B-BD83-97227D234B41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D82B5E14-B26A-4529-A758-213DF3AB27C1}
+	EndGlobalSection
+EndGlobal
