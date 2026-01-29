@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -7,10 +6,9 @@ namespace HammerMtheater.UserControls
 {
     public partial class SeatControl : UserControl
     {
-        public int SeatNumber { get; private set; }
-        public bool IsAvailable { get; private set; }
-
-        public event RoutedEventHandler? SeatSelected;
+        public int SeatNumber { get; }
+        public bool IsAvailable { get; }
+        public bool IsSelected { get; private set; }
 
         public SeatControl(int seatNumber, bool isAvailable)
         {
@@ -23,30 +21,23 @@ namespace HammerMtheater.UserControls
             UpdateColor();
         }
 
-        private void UpdateColor()
-        {
-            if (IsAvailable)
-                Root.Background = new SolidColorBrush(Color.FromRgb(76, 175, 80)); // ירוק
-            else
-                Root.Background = new SolidColorBrush(Color.FromRgb(120, 120, 120)); // אפור
-        }
-
         private void Seat_Click(object sender, MouseButtonEventArgs e)
         {
             if (!IsAvailable)
                 return;
 
-            SeatSelected?.Invoke(this, new RoutedEventArgs());
+            IsSelected = !IsSelected;
+            UpdateColor();
         }
 
-        public void SetSelected(bool selected)
+        private void UpdateColor()
         {
             if (!IsAvailable)
-                return;
-
-            Root.Background = selected
-                ? Brushes.Red
-                : new SolidColorBrush(Color.FromRgb(76, 175, 80));
+                Root.Background = Brushes.Gray;
+            else if (IsSelected)
+                Root.Background = Brushes.Red;
+            else
+                Root.Background = Brushes.Green;
         }
     }
 }

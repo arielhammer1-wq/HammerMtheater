@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using HammerMtheater.UserControls;
 using Model;
@@ -11,7 +13,7 @@ namespace HammerMtheater.Pages
         private readonly Theater _theater;
         private readonly MovieHall _hall;
 
-        private SeatControl? _selectedSeat;
+        private readonly List<SeatControl> _seats = new();
 
         public SeatSelection(Movie movie, Theater theater, MovieHall hall)
         {
@@ -27,46 +29,44 @@ namespace HammerMtheater.Pages
         private void BuildSeats()
         {
             SeatsGrid.Children.Clear();
+            _seats.Clear();
 
-            int totalSeats = _hall.AmountOfSeats;
-
-            for (int i = 1; i <= totalSeats; i++)
+            for (int i = 1; i <= _hall.AmountOfSeats; i++)
             {
-                // כרגע כולם פנויים – בהמשך תחבר ל-Tickets
-                bool isAvailable = true;
+                bool isAvailable = true; // בהמשך תבדוק DB
 
                 var seat = new SeatControl(i, isAvailable);
-                seat.SeatSelected += Seat_Selected;
-
+                _seats.Add(seat);
                 SeatsGrid.Children.Add(seat);
             }
         }
 
-        private void Seat_Selected(object sender, RoutedEventArgs e)
-        {
-            if (_selectedSeat != null)
-                _selectedSeat.SetSelected(false);
-
-            _selectedSeat = sender as SeatControl;
-            _selectedSeat?.SetSelected(true);
-        }
-
         private void Continue_Click(object sender, RoutedEventArgs e)
         {
-            //if (_selectedSeat == null)
-            //{
-            //    MessageBox.Show("Please select a seat");
-            //    return;
-            //}
+            var selectedSeats = _seats
+                .Where(s => s.IsSelected)
+                .Select(s => s.SeatNumber)
+                .ToList();
 
-            //NavigationService.Navigate(
-            //    new TicketSummary(
-            //        _movie,
-            //        _theater,
-            //        _hall,
-            //        _selectedSeat.SeatNumber
-            //    )
-            //);
+            if (selectedSeats.Count == 0)
+            {
+                MessageBox.Show("Please select at least one seat");
+                return;
+            }
+
+            NavigationService.Navigate(
+                new TicketSummary(
+                    _movie,
+                    _theater,
+                    _hall,
+                    selectedSeats
+                )
+            );
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

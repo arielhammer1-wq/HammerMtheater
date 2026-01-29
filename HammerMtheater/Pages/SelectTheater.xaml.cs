@@ -34,7 +34,10 @@ namespace HammerMtheater.Pages
                 MessageBox.Show("Failed to load theaters:\n" + ex.Message);
             }
         }
-
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
         private void Continue_Click(object sender, RoutedEventArgs e)
         {
             if (TheaterListBox.SelectedItem is Theater theater)

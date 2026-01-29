@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Reference Include="Model">
-      <HintPath>..\..\..\..\source\repos\arielhammer1-wq\Arielproject\MoviesInterface\bin\Debug\net8.0\Model.dll</HintPath>
+      <HintPath>..\..\..\Arielproject-master (1)\Arielproject-master\Myservice\bin\Debug\net8.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="MoviesInterface">
       <HintPath>..\..\..\..\source\repos\arielhammer1-wq\Arielproject\MoviesInterface\bin\Debug\net8.0\MoviesInterface.dll</HintPath>

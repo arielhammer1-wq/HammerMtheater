@@ -2,13 +2,11 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      Background="#0A0A0A">
+      Background="#050505">
 
     <Grid>
-
-        <!-- 🎬 MOVIES BACKGROUND -->
         <ItemsControl x:Name="BackgroundMovies"
-                      Opacity="0.35"
+                      Opacity="0.25"
                       IsHitTestVisible="False">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -27,131 +25,138 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!-- DARK OVERLAY -->
-        <Border Background="#66000000"/>
+        <Border>
+            <Border.Background>
+                <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="1" RadiusY="1">
+                    <GradientStop Color="#00000000" Offset="0" />
+                    <GradientStop Color="#FF050505" Offset="1" />
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
 
-        <!-- GLOWS -->
-        <Ellipse Width="900" Height="900"
-                 Fill="#33E50914"
+        <Ellipse Width="800" Height="800"
+                 Fill="#15E50914"
                  HorizontalAlignment="Right"
                  VerticalAlignment="Top"
-                 Margin="0,-350,-350,0"/>
+                 Margin="0,-300,-300,0">
+            <Ellipse.Effect>
+                <BlurEffect Radius="100"/>
+            </Ellipse.Effect>
+        </Ellipse>
 
-        <Ellipse Width="550" Height="550"
-                 Fill="#2200B3FF"
+        <Ellipse Width="600" Height="600"
+                 Fill="#08FFFFFF"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Bottom"
-                 Margin="-250,0,0,-250"/>
+                 Margin="-200,0,0,-200">
+            <Ellipse.Effect>
+                <BlurEffect Radius="100"/>
+            </Ellipse.Effect>
+        </Ellipse>
 
-        <!-- LOGIN CARD -->
         <Border Width="430"
-                Padding="38"
-                Background="#1A1A1A"
-                CornerRadius="20"
-                BorderBrush="#2A2A2A"
-                BorderThickness="1"
+                Padding="40"
+                Background="#161616"
+                CornerRadius="15"
+                BorderBrush="#333333"
+                BorderThickness="1.5"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Opacity="0.7"/>
+            </Border.Effect>
 
             <StackPanel>
 
-                <!-- BRAND -->
                 <StackPanel Margin="0,0,0,34">
                     <materialDesign:PackIcon Kind="MovieOpen"
-                                             Width="50"
-                                             Height="50"
+                                             Width="55"
+                                             Height="55"
                                              Foreground="#E50914"
                                              HorizontalAlignment="Center"/>
 
                     <TextBlock Text="HammerM Theater"
-                               FontSize="30"
-                               FontWeight="Bold"
+                               FontSize="32"
+                               FontWeight="ExtraBold"
                                Foreground="White"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center"
+                               Margin="0,10,0,0"/>
 
-                    <TextBlock Text="Premium cinema platform"
-                               Foreground="#B0B0B0"
-                               FontSize="13"
+                    <TextBlock Text="PREMIUM CINEMA PLATFORM"
+                               Foreground="#666666"
+                               FontSize="11"
+                               FontWeight="Bold"
+   
                                HorizontalAlignment="Center"/>
                 </StackPanel>
 
-                <!-- INPUTS -->
                 <TextBox x:Name="UsernameBox"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          materialDesign:HintAssist.Hint="Username"
                          Margin="0,0,0,16"
-                        Foreground="AliceBlue"
-                        BorderBrush="AliceBlue"
-                         />
+                         Foreground="White"
+                         BorderBrush="#444444"/>
 
                 <Grid Margin="0,0,0,16">
-
-                    <!-- PASSWORD FIELD -->
                     <PasswordBox x:Name="PasswordHidden"
-                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
-                 materialDesign:HintAssist.Hint="Password"
-                 Padding="0,0,42,0"
-                 Foreground="AliceBlue"
-                 BorderBrush="AliceBlue" 
-                                 />
+                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                 materialDesign:HintAssist.Hint="Password"
+                                 Padding="0,0,42,0"
+                                 Foreground="White"
+                                 BorderBrush="#444444"/>
 
                     <TextBox x:Name="PasswordVisible"
-             Visibility="Collapsed"
-             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-             materialDesign:HintAssist.Hint="Password"
-             Padding="0,0,42,0"
-             Foreground="AliceBlue"
-             BorderBrush="AliceBlue"
+                             Visibility="Collapsed"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             materialDesign:HintAssist.Hint="Password"
+                             Padding="0,0,42,0"
+                             Foreground="White"
+                             BorderBrush="#444444"
                              Height="50"/>
 
-                    <!-- EYE ICON (OVERLAY) -->
-                    <Button Width="60"
-            Height="36"
-            Background="Transparent"
-            BorderThickness="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Margin="286,0,0,0"
-            Panel.ZIndex="10"
-            Click="TogglePassword_Click">
-
+                    <Button Width="40"
+                            Height="40"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,5,0"
+                            Panel.ZIndex="10"
+                            Click="TogglePassword_Click">
                         <materialDesign:PackIcon x:Name="EyeIcon"
-                                 Kind="Eye"
-                                 Width="11"
-                                 Height="12"
-                                 Foreground="#CCCCCC"
-                                                HorizontalAlignment="Right" VerticalAlignment="Center" RenderTransformOrigin="2.273,0.532" />
+                                                 Kind="Eye"
+                                                 Width="18"
+                                                 Height="18"
+                                                 Foreground="#666666"/>
                     </Button>
-
                 </Grid>
-
-
 
                 <TextBox x:Name="EmailBox"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          materialDesign:HintAssist.Hint="Email"
                          Margin="0,0,0,24"
-                         Foreground="AliceBlue"
-                        BorderBrush="AliceBlue"/>
+                         Foreground="White"
+                         BorderBrush="#444444"/>
 
-                <!-- BUTTON -->
-                <Button Height="48"
+                <Button Height="50"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Background="#E50914"
+                        BorderBrush="#E50914"
                         Foreground="White"
+                        FontWeight="Bold"
                         Click="LoginButton_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <materialDesign:PackIcon Kind="Login" Margin="0,0,8,0"/>
-                        <TextBlock Text="Sign In"/>
+                        <materialDesign:PackIcon Kind="Login" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="SIGN IN" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
                 <TextBlock x:Name="ErrorText"
-                           Foreground="#FF6B6B"
+                           Foreground="#FF5252"
+                           FontSize="12"
                            HorizontalAlignment="Center"
                            Margin="0,14,0,0"/>
 
-                <!-- FOOTER -->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
                             Margin="0,24,0,0">
@@ -159,14 +164,17 @@
                     <Button Content="Create account"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Click="SignupButton_Click"
-                            Foreground="AliceBlue"/>
+                            Foreground="#999999"
+                            FontSize="12"/>
 
-                    <TextBlock Text="  •  " Foreground="#555"/>
+                    <TextBlock Text="|" Foreground="#333" VerticalAlignment="Center" Margin="5,0"/>
 
                     <Button Content="Skip"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Foreground="#E50914"
-                            Click="skip_Click"/>
+                            FontWeight="Bold"
+                            Click="skip_Click"
+                            FontSize="12"/>
                 </StackPanel>
 
             </StackPanel>

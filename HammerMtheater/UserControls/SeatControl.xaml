@@ -5,6 +5,7 @@
              Width="42">
 
     <Border x:Name="Root"
+            Margin="2"
             CornerRadius="6"
             Background="#4CAF50"
             Cursor="Hand"

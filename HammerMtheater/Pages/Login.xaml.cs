@@ -61,6 +61,7 @@ namespace HammerMtheater.Pages
                 {
                     MessageBox.Show("Login successful!", "Success");
 
+                    App.CurrentUser = currentUser;
                     // מעבר לדף הבית
                     NavigationService.Navigate(new HomePage());
                 }

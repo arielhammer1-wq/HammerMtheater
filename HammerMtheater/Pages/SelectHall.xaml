@@ -1,60 +1,117 @@
 ﻿<Page x:Class="HammerMtheater.Pages.SelectHall"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Background="#0F0F0F">
+      Background="#0A0A0A">
 
-    <Grid Margin="30">
+    <Grid Margin="40">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- TITLE -->
-        <TextBlock Text="Select Hall"
-                   FontSize="26"
-                   FontWeight="Bold"
-                   Foreground="White"/>
+        <StackPanel Grid.Row="0" Margin="0,0,0,30">
+            <TextBlock Text="AUDITORIUM" 
+                       Foreground="#E50914" 
+                       FontSize="12" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,5"/>
+            <TextBlock Text="Select Hall"
+                       FontSize="32"
+                       FontWeight="ExtraBold"
+                       Foreground="White"/>
+        </StackPanel>
 
-        <!-- LIST -->
         <ListBox x:Name="HallListBox"
                  Grid.Row="1"
-                 Margin="0,20,0,80"
                  Background="Transparent"
-                 BorderThickness="0">
+                 BorderThickness="0"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 HorizontalContentAlignment="Stretch">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0,0,0,15"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border x:Name="HallBorder"
+                                        Background="#161616"
+                                        BorderBrush="#333"
+                                        BorderThickness="1"
+                                        CornerRadius="12"
+                                        Padding="20,15">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="HallBorder" Property="Background" Value="#222"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="HallBorder" Property="BorderBrush" Value="#E50914"/>
+                                        <Setter TargetName="HallBorder" Property="Background" Value="#251010"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Height="70"
-                            Margin="0,0,0,12"
-                            Background="#2A2A2A"
-                            CornerRadius="12"
-                            Padding="16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                        <StackPanel>
+                        <Border Grid.Column="0" Width="45" Height="45" 
+                                Background="#222" CornerRadius="8" Margin="0,0,15,0">
+                            <TextBlock Text="🎬" FontSize="20" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock Text="{Binding HallName}"
                                        Foreground="White"
-                                       FontSize="18"/>
-
-                            <TextBlock Text="{Binding AmountOfSeats, StringFormat=Seats: {0}}"
-                                       Foreground="#AAAAAA"
-                                       FontSize="12"/>
+                                       FontSize="18"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="{Binding AmountOfSeats, StringFormat='Capacity: {0} Premium Seats'}"
+                                       Foreground="#666"
+                                       FontSize="12"
+                                       Margin="0,2,0,0"/>
                         </StackPanel>
 
-                    </Border>
+                        <TextBlock Grid.Column="2" Text="❯" 
+                                   Foreground="#333" 
+                                   VerticalAlignment="Center" 
+                                   FontWeight="Bold" Margin="10,0,0,0"/>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- CONTINUE -->
-        <Button Grid.Row="2"
-                Height="48"
-                Width="220"
-                Content="Continue"
-                Background="#E50914"
-                Foreground="White"
-                BorderThickness="0"
-                HorizontalAlignment="Center"
-                Click="Continue_Click"/>
+        <Border Grid.Row="2" Padding="0,30,0,0" BorderBrush="#1A1A1A" BorderThickness="0,1,0,0">
+            <Button Height="55"
+                    Width="260"
+                    Content="CONTINUE TO SEATS"
+                    Background="#E50914"
+                    Foreground="White"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    HorizontalAlignment="Center"
+                    Click="Continue_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="27"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Border>
     </Grid>
 </Page>
