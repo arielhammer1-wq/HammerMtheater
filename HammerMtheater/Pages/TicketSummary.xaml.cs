@@ -13,13 +13,9 @@ namespace HammerMtheater.Pages
         private readonly MovieHall _hall;
         private readonly List<int> _seats;
 
-        private const int PRICE_PER_TICKET = 40;
+        private const int PRICE = 40;
 
-        public TicketSummary(
-            Movie movie,
-            Theater theater,
-            MovieHall hall,
-            List<int> seats)
+        public TicketSummary(Movie movie, Theater theater, MovieHall hall, List<int> seats)
         {
             InitializeComponent();
 
@@ -37,7 +33,7 @@ namespace HammerMtheater.Pages
             TheaterText.Text = $"Theater: {_theater.NameOfTheater}";
             HallText.Text = $"Hall: {_hall.HallName}";
             SeatsText.Text = $"Seats: {string.Join(", ", _seats)}";
-            PriceText.Text = $"Total: ₪{_seats.Count * PRICE_PER_TICKET}";
+            PriceText.Text = $"Total: ₪{_seats.Count * PRICE}";
         }
 
         private async void Confirm_Click(object sender, RoutedEventArgs e)
@@ -48,22 +44,22 @@ namespace HammerMtheater.Pages
             {
                 Ticket t = new Ticket
                 {
-                    TicketPrice = PRICE_PER_TICKET,
+                    TicketPrice = PRICE,
                     SeatNumber = seat,
-                    User = App.CurrentUser!,
-                    Screening = null // זמני
+                    User = App.CurrentUser,
+                    Screening = null
                 };
 
                 await api.InsertTicket(t);
             }
 
-            MessageBox.Show("Tickets purchased successfully!");
+            MessageBox.Show("Purchase completed!");
             NavigationService.Navigate(new HomePage());
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+
         }
     }
 }

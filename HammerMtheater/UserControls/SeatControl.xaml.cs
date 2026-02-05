@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -10,10 +11,11 @@ namespace HammerMtheater.UserControls
         public bool IsAvailable { get; }
         public bool IsSelected { get; private set; }
 
+        public event RoutedEventHandler? SeatSelected;
+
         public SeatControl(int seatNumber, bool isAvailable)
         {
             InitializeComponent();
-
             SeatNumber = seatNumber;
             IsAvailable = isAvailable;
 
@@ -23,9 +25,12 @@ namespace HammerMtheater.UserControls
 
         private void Seat_Click(object sender, MouseButtonEventArgs e)
         {
-            if (!IsAvailable)
-                return;
+            if (!IsAvailable) return;
+            SeatSelected?.Invoke(this, new RoutedEventArgs());
+        }
 
+        public void ToggleSelected()
+        {
             IsSelected = !IsSelected;
             UpdateColor();
         }

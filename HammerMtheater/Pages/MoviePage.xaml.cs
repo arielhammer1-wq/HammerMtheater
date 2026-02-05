@@ -54,7 +54,10 @@ namespace HammerMtheater.Pages
                     {
                         GenreName = g.GenreName,
                         Movies = g.Movies
-                            .Where(m => m.MovieName.ToLower().Contains(text))
+                            .Where(m =>
+                                m.MovieName.ToLower().Contains(text) ||
+                                g.GenreName.ToLower().Contains(text)
+                            )
                             .ToList()
                     })
                     .Where(g => g.Movies.Count > 0)
@@ -63,6 +66,7 @@ namespace HammerMtheater.Pages
 
             Refresh();
         }
+       
 
         private void Refresh()
         {

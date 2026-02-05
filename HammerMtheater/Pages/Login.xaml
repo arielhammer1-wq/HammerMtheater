@@ -83,11 +83,10 @@
                                Margin="0,10,0,0"/>
 
                     <TextBlock Text="PREMIUM CINEMA PLATFORM"
-                               Foreground="#666666"
-                               FontSize="11"
-                               FontWeight="Bold"
-   
-                               HorizontalAlignment="Center"/>
+           Foreground="#666666"
+           FontSize="11"
+           FontWeight="Bold"
+           HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <TextBox x:Name="UsernameBox"
