@@ -36,26 +36,30 @@ namespace HammerMtheater.Pages
             PriceText.Text = $"Total: ₪{_seats.Count * PRICE}";
         }
 
-        private async void Confirm_Click(object sender, RoutedEventArgs e)
+       private async void Confirm_Click(object sender, RoutedEventArgs e)
+{
+    MoviesFunctions api = new MoviesFunctions();
+    User currentUser = App.CurrentUser;
+
+    foreach (int seat in _seats)
+    {
+        Ticket t = new Ticket
         {
-            MoviesFunctions api = new MoviesFunctions();
+            SeatNumber = seat,
+            TicketPrice = PRICE_PER_TICKET,
+            User = currentUser,
+            Movie = _movie,
+            Theater = _theater,
+            Hall = _hall
+        };
 
-            foreach (int seat in _seats)
-            {
-                Ticket t = new Ticket
-                {
-                    TicketPrice = PRICE,
-                    SeatNumber = seat,
-                    User = App.CurrentUser,
-                    Screening = null
-                };
+        await api.InsertTicket(t);
+    }
 
-                await api.InsertTicket(t);
-            }
+    MessageBox.Show("Tickets purchased!");
 
-            MessageBox.Show("Purchase completed!");
-            NavigationService.Navigate(new HomePage());
-        }
+    NavigationService.Navigate(new MyTickets());
+}
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
