@@ -46,7 +46,7 @@ namespace HammerMtheater.Pages
         Ticket t = new Ticket
         {
             SeatNumber = seat,
-            TicketPrice = PRICE_PER_TICKET,
+            TicketPrice =t.TicketPrice,
             User = currentUser,
             Movie = _movie,
             Theater = _theater,
