@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using System.Windows.Controls;
-using Model;
+﻿using Model;
 using MoviesInterface;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace HammerMtheater.Pages
 {
@@ -11,6 +12,10 @@ namespace HammerMtheater.Pages
         {
             InitializeComponent();
             LoadTickets();
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new HomePage());
         }
 
         private async void LoadTickets()
