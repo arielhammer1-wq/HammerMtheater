@@ -23,20 +23,35 @@ namespace HammerMtheater.Pages
 
         private async void LoadMovies()
         {
-            MoviesFunctions api = new MoviesFunctions();
-            MovieList movies = await api.GetAllMovies();
+            // Start loader (Add the LoadingOverlay Grid to your XAML if you haven't yet)
+            // LoadingOverlay.Visibility = Visibility.Visible;
 
-            _allGenres = movies
-                .GroupBy(m => m.Genre.GenreName)
-                .Select(g => new GenreGroup
-                {
-                    GenreName = g.Key,
-                    Movies = g.ToList()
-                })
-                .ToList();
+            try
+            {
+                MoviesFunctions api = new MoviesFunctions();
+                MovieList movies = await api.GetAllMovies();
 
-            Genres = _allGenres;
-            Refresh();
+                _allGenres = movies
+                    .GroupBy(m => m.Genre.GenreName)
+                    .Select(g => new GenreGroup
+                    {
+                        GenreName = g.Key.ToUpper(), // Uppercase for that premium look
+                        Movies = g.ToList()
+                    })
+                    .OrderBy(g => g.GenreName) // Sort alphabetically
+                    .ToList();
+
+                Genres = _allGenres;
+                Refresh();
+            }
+            catch (Exception ex)
+            {
+                // Handle error elegantly
+            }
+            finally
+            {
+                // LoadingOverlay.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -66,6 +81,7 @@ namespace HammerMtheater.Pages
 
             Refresh();
         }
+
        
 
         private void Refresh()

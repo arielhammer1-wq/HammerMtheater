@@ -124,9 +124,9 @@
                             Click="TogglePassword_Click">
                         <materialDesign:PackIcon x:Name="EyeIcon"
                                                  Kind="Eye"
-                                                 Width="18"
+                                                 Width="25"
                                                  Height="18"
-                                                 Foreground="#666666"/>
+                                                 Foreground="#666666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>
                 </Grid>
 
