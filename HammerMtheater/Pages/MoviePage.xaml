@@ -10,7 +10,7 @@
                Stretch="UniformToFill" 
                Opacity="0.8">
             <Image.Effect>
-                <BlurEffect Radius="10"/>
+                <BlurEffect Radius="25"/>
             </Image.Effect>
         </Image>
 
@@ -39,7 +39,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="0,0,0,40">
-                <TextBlock Text="BROWSE CATALOG" Foreground="#E50914" FontSize="12" FontWeight="Black" Margin="20,0,0,10"/>
+                <TextBlock Text="BROWSE CATALOG" Foreground="#E50914" FontSize="12" FontWeight="Black" Margin="20,0,0,10" />
                 <Border Background="#22FFFFFF" CornerRadius="25" BorderBrush="#33FFFFFF" BorderThickness="1" 
                         MaxWidth="600" HorizontalAlignment="Left" Margin="10,0">
                     <Grid>
@@ -56,28 +56,37 @@
                 </Border>
             </StackPanel>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" PanningMode="Both">
+            <ScrollViewer Grid.Row="1" 
+                          VerticalScrollBarVisibility="Auto" 
+                          PanningMode="Both"
+                          materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True">
+
                 <ItemsControl ItemsSource="{Binding Genres}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,45">
                                 <StackPanel Orientation="Horizontal" Margin="20,0,0,20">
-                                    <Rectangle Width="4" Height="24" Fill="#E50914" Margin="0,0,12,0"/>
+                                    <Rectangle Width="5" Height="30" Fill="#E50914" Margin="0,0,15,0" RadiusX="2" RadiusY="2"/>
                                     <TextBlock Text="{Binding GenreName}"
-                                               FontSize="28" FontWeight="Black"
+                                               FontSize="32" FontWeight="ExtraBold"
                                                Foreground="White" VerticalAlignment="Center"/>
                                 </StackPanel>
 
-                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                                              VerticalScrollBarVisibility="Disabled"
+                                              materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True"
+                                              PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                                     <ItemsControl ItemsSource="{Binding Movies}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                                                <VirtualizingStackPanel Orientation="Horizontal"/>
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <controls:MovieCard/>
+                                                <Grid Margin="10,0,10,25">
+                                                    <controls:MovieCard Cursor="Hand"/>
+                                                </Grid>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>

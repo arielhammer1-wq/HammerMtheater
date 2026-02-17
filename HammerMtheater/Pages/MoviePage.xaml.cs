@@ -3,6 +3,7 @@ using MoviesInterface;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HammerMtheater.Pages
 {
@@ -53,7 +54,21 @@ namespace HammerMtheater.Pages
                 // LoadingOverlay.Visibility = Visibility.Collapsed;
             }
         }
-
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+            if (e.Delta > 0)
+            {
+                scrollViewer.LineLeft();
+                scrollViewer.LineLeft();
+            }
+            else
+            {
+                scrollViewer.LineRight();
+                scrollViewer.LineRight();
+            }
+            e.Handled = true;
+        }
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = SearchBox.Text.ToLower();
