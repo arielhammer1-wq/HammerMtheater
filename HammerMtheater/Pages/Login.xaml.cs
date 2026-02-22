@@ -19,11 +19,10 @@ namespace HammerMtheater.Pages
         {
             ErrorText.Text = "";
 
-            string password = _isPasswordVisible
-                ? PasswordVisible.Text
-                : PasswordHidden.Password;
+            // 1. Correctly capture the password from whichever box is currently active
+            string password = _isPasswordVisible ? PasswordVisible.Text : PasswordHidden.Password;
 
-            // בדיקת שדות
+            // 2. Validate that no fields are empty
             if (string.IsNullOrWhiteSpace(UsernameBox.Text) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(EmailBox.Text))
@@ -35,49 +34,46 @@ namespace HammerMtheater.Pages
             try
             {
                 MoviesFunctions api = new MoviesFunctions();
-
-                // ⬇️ שליפת כל המשתמשים מה־DB
                 UserList users = await api.GetAllUsers();
 
                 if (users == null || users.Count == 0)
                 {
-                    MessageBox.Show(
-                        "Connected to server, but no users were returned.\nCheck database.",
-                        "Login Error",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning
-                    );
+                    MessageBox.Show("No users found in database.", "Login Error");
                     return;
                 }
 
-                // ⬇️ חיפוש משתמש תואם
+                // 3. Search for the user with matching credentials
+                // Using .Trim() prevents login failure from accidental trailing spaces
                 User currentUser = users.Find(u =>
-                    u.Username == UsernameBox.Text.Trim() &&
+                    u.Username.Trim() == UsernameBox.Text.Trim() &&
                     u.Pass == password &&
-                    u.Email == EmailBox.Text.Trim()
+                    u.Email.Trim() == EmailBox.Text.Trim()
                 );
 
                 if (currentUser != null)
                 {
-                    MessageBox.Show("Login successful!", "Success");
-
                     App.CurrentUser = currentUser;
-                    // מעבר לדף הבית
-                    NavigationService.Navigate(new HomePage());
+
+                   
+                    if (currentUser.Roleid == 7)
+                    {
+                        MessageBox.Show("Welcome, Operator!", "Admin Access");
+                        NavigationService.Navigate(new OperatorDashboard());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login successful!", "Success");
+                        NavigationService.Navigate(new HomePage());
+                    }
                 }
                 else
                 {
-                    ErrorText.Text = "Invalid username, email or password";
+                    ErrorText.Text = "Invalid username, email, or password";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "❌ Failed to connect to server:\n\n" + ex.Message,
-                    "Connection Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                MessageBox.Show("❌ Connection Error:\n\n" + ex.Message, "Error");
             }
         }
 

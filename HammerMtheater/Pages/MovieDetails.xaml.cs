@@ -3,6 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Web.WebView2.Core;
 
 namespace HammerMtheater.Pages
 {
@@ -19,15 +20,52 @@ namespace HammerMtheater.Pages
 
         private async void WatchTrailer_Click(object sender, RoutedEventArgs e)
         {
-            // Assuming your Movie model has a TrailerUrl property
-            if (!string.IsNullOrEmpty(_movie.TrailerUrl))
+            if (string.IsNullOrWhiteSpace(_movie?.TrailerUrl))
             {
-                TrailerPlayer.Source = new Uri(_movie.TrailerUrl, UriKind.RelativeOrAbsolute);
-                await DialogHost.Show(TrailerPlayer, "TrailerDialog");
+                MessageBox.Show("Trailer not available.");
+                return;
             }
-            else
+
+            // Open dialog FIRST
+            await DialogHost.Show(new object(), "TrailerDialog");
+
+            try
             {
-                MessageBox.Show("Trailer not available for this movie.");
+                // Initialize AFTER dialog is visible
+                if (TrailerBrowser.CoreWebView2 == null)
+                {
+                    await TrailerBrowser.EnsureCoreWebView2Async();
+                }
+
+                string videoId = GetYouTubeId(_movie.TrailerUrl);
+
+                string embedUrl =
+                    $"https://www.youtube.com/embed/{videoId}?autoplay=1&controls=1";
+
+                TrailerBrowser.CoreWebView2.Navigate(embedUrl);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("WebView2 error:\n" + ex.Message);
+            }
+        }
+
+        private string GetYouTubeId(string url)
+        {
+            if (url.Contains("watch?v="))
+                return url.Split("watch?v=")[1].Split('&')[0];
+
+            if (url.Contains("youtu.be/"))
+                return url.Split("youtu.be/")[1];
+
+            return url;
+        }
+
+        private void DialogHost_DialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (TrailerBrowser?.CoreWebView2 != null)
+            {
+                TrailerBrowser.CoreWebView2.Navigate("about:blank");
             }
         }
 
