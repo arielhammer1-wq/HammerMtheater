@@ -77,9 +77,9 @@ namespace HammerMtheater.Pages
                     m.MovieName = TxtName.Text;
                     m.MovieLength = int.Parse(TxtLength.Text);
                     m.ReleaseDate = DateTime.Parse(TxtDate.Text);
-                     = new AgeRating { Id = int.Parse(TxtAge.Text) };
+                    new AgeRating { Id = int.Parse(TxtAge.Text) };
                     int ageId = int.Parse(TxtAge.Text);
-                    m.AgeRatingName = await api(ageId);
+                    m.AgeRatingName = await api.GetAgeRatingById(ageId);
                     int genreId = int.Parse(TxtGenre.Text);
                     m.Genre = await api.GetMovieGenreById(genreId);
                     m.PosterUrl = TxtPoster.Text;
