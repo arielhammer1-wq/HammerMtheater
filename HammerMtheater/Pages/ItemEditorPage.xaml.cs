@@ -20,20 +20,15 @@ namespace HammerMtheater.Pages
             _item = item;
             _isEdit = (item != null);
 
-            // Show relevant fields based on mode
-            if (_mode == "Movies")
-            {
-                MovieFields.Visibility = Visibility.Visible;
-                TheaterFields.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                MovieFields.Visibility = Visibility.Collapsed;
-                TheaterFields.Visibility = Visibility.Visible;
-            }
-
-            PageHeader.Text = _isEdit ? $"Edit {_mode}" : $"Insert New {_mode}";
+            SetupUI();
             if (_isEdit) FillFields();
+        }
+
+        private void SetupUI()
+        {
+            PageHeader.Text = _isEdit ? $"Edit {_mode}" : $"Insert New {_mode}";
+            MovieFields.Visibility = (_mode == "Movies") ? Visibility.Visible : Visibility.Collapsed;
+            TheaterFields.Visibility = (_mode == "Theaters") ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void FillFields()
@@ -65,36 +60,55 @@ namespace HammerMtheater.Pages
 
                 if (_mode == "Movies")
                 {
-                    Movie m = _isEdit ? (Movie)_item : new Movie();
+                    Movie m;
+
+                    if (_isEdit)
+                    {
+                        // We use the object we ALREADY HAVE. 
+                        // It definitely has the correct ID because we clicked it in the grid.
+                        m = (Movie)_item;
+                    }
+                    else
+                    {
+                        m = new Movie();
+                    }
+
+                    // Now we fill the data. If _isEdit is true, m.Id is already set!
                     m.MovieName = TxtName.Text;
                     m.MovieLength = int.Parse(TxtLength.Text);
-                    m.AgeRatingName = new AgeRating { Id = int.Parse(TxtAge.Text) };
                     m.ReleaseDate = DateTime.Parse(TxtDate.Text);
-                    m.Genre = new MovieGenre { Id = int.Parse(TxtGenre.Text) };
+                     = new AgeRating { Id = int.Parse(TxtAge.Text) };
+                    int ageId = int.Parse(TxtAge.Text);
+                    m.AgeRatingName = await api(ageId);
+                    int genreId = int.Parse(TxtGenre.Text);
+                    m.Genre = await api.GetMovieGenreById(genreId);
                     m.PosterUrl = TxtPoster.Text;
                     m.TrailerUrl = TxtTrailer.Text;
 
-                    if (_isEdit) await api.UpdateMovie(m);
-                    else await api.InsertMovie(m);
+                    if (_isEdit)
+                        await api.UpdateMovie(m);
+
                 }
-                else
+                else if (_mode == "Theaters")
                 {
                     Theater t = _isEdit ? (Theater)_item : new Theater();
                     t.NameOfTheater = TxtName.Text;
                     t.Address = TxtAddress.Text;
                     t.StreetNumber = int.Parse(TxtStreet.Text);
-                    t.CityCode = new City { Id = int.Parse(TxtCity.Text) };
+                    int code = int.Parse(TxtCity.Text);
+                    t.CityCode = await api.GetCityById(code);
+                    
 
                     if (_isEdit) await api.UpdateTheater(t);
-                    else await api.InsertTheater(t);
+                    
                 }
 
-                MessageBox.Show("Success!");
+                MessageBox.Show("Saved Successfully!");
                 NavigationService.GoBack();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: Please check that dates and ID numbers are correct.\n\n" + ex.Message);
+                MessageBox.Show("Critical Error: " + ex.Message);
             }
         }
 

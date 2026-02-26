@@ -10,7 +10,10 @@
             <TextBlock Text="Name / Title" Foreground="Gray" Margin="0,0,0,5"/>
             <TextBox x:Name="TxtName" Margin="0,0,0,20" FontSize="16" Foreground="White" Background="#333" BorderThickness="0" Padding="5"/>
 
-            <StackPanel x:Name="MovieFields">
+            <TextBlock x:Name="LblInfo" Text="Email/Info" Foreground="Gray" Margin="0,0,0,5" Visibility="Collapsed"/>
+            <TextBox x:Name="TxtInfo" Margin="0,0,0,20" FontSize="16" Foreground="White" Background="#333" BorderThickness="0" Padding="5" Visibility="Collapsed"/>
+
+            <StackPanel x:Name="MovieFields" Visibility="Collapsed">
                 <TextBlock Text="Length (Minutes)" Foreground="Gray" Margin="0,0,0,5"/>
                 <TextBox x:Name="TxtLength" Margin="0,0,0,20" FontSize="16" Foreground="White" Background="#333" BorderThickness="0" Padding="5"/>
 
@@ -30,7 +33,7 @@
                 <TextBox x:Name="TxtTrailer" Margin="0,0,0,20" FontSize="16" Foreground="White" Background="#333" BorderThickness="0" Padding="5"/>
             </StackPanel>
 
-            <StackPanel x:Name="TheaterFields">
+            <StackPanel x:Name="TheaterFields" Visibility="Collapsed">
                 <TextBlock Text="Address" Foreground="Gray" Margin="0,0,0,5"/>
                 <TextBox x:Name="TxtAddress" Margin="0,0,0,20" FontSize="16" Foreground="White" Background="#333" BorderThickness="0" Padding="5"/>
 
@@ -41,7 +44,7 @@
                 <TextBox x:Name="TxtCity" Margin="0,0,0,20" FontSize="16" Foreground="White" Background="#333" BorderThickness="0" Padding="5"/>
             </StackPanel>
 
-            <Button x:Name="BtnSave" Content="SAVE TO DATABASE" Click="BtnSave_Click" 
+            <Button x:Name="BtnSave" Content="SAVE CHANGES" Click="BtnSave_Click" 
                     Background="#E50914" Height="45" Margin="0,20,0,10" BorderThickness="0" FontWeight="Bold"/>
             <Button Content="CANCEL" Click="BtnCancel_Click" Background="Transparent" Foreground="Gray" BorderThickness="0"/>
         </StackPanel>
