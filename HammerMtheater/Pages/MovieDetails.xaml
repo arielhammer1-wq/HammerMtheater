@@ -10,9 +10,8 @@
         CloseOnClickAway="True"
         DialogClosing="DialogHost_DialogClosing">
 
-        <!-- ================= DIALOG CONTENT ================= -->
         <materialDesign:DialogHost.DialogContent>
-            <Grid Width="1100" Height="618" Background="Black">
+            <Grid x:Name="TrailerContainer" Width="1100" Height="618" Background="Black">
 
                 <wv2:WebView2
                     x:Name="TrailerBrowser"
@@ -39,10 +38,8 @@
             </Grid>
         </materialDesign:DialogHost.DialogContent>
 
-        <!-- ================= MAIN CONTENT ================= -->
         <Grid>
 
-            <!-- Background -->
             <Grid>
                 <Image Source="{Binding PosterUrl}" Stretch="UniformToFill">
                     <Image.Effect>
@@ -52,23 +49,20 @@
                 <Border Background="#CC050505"/>
             </Grid>
 
-            <!-- Foreground -->
             <Grid Margin="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="550"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Poster -->
                 <Border Grid.Column="0"
                         CornerRadius="15"
                         BorderBrush="#44FFFFFF"
                         BorderThickness="1"
                         ClipToBounds="True">
-                    <Image Source="{Binding PosterUrl}" Stretch="Fill"/>
+                    <Image Source="{Binding PosterUrl}" Stretch="UniformToFill"/>
                 </Border>
 
-                <!-- Info -->
                 <StackPanel Grid.Column="1"
                             Margin="60,0,0,0"
                             VerticalAlignment="Top">

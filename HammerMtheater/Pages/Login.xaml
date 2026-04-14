@@ -168,12 +168,19 @@
 
                     <TextBlock Text="|" Foreground="#333" VerticalAlignment="Center" Margin="5,0"/>
 
-                    <Button Content="Skip"
+                    <Button Content="Skip as admin"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             Foreground="#E50914"
                             FontWeight="Bold"
-                            Click="skip_Click"
+                            Click="skip_Click_admin"
                             FontSize="12"/>
+
+                    <Button Content="Skip as user"
+        Style="{StaticResource MaterialDesignFlatButton}"
+        Foreground="#E50820"
+        FontWeight="Bold"
+        Click="skip_Click_user"
+        FontSize="12"/>
                 </StackPanel>
 
             </StackPanel>

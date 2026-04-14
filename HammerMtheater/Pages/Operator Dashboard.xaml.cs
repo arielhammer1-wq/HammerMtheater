@@ -22,16 +22,50 @@ namespace HammerMtheater.Pages
         {
             try
             {
-                MoviesFunctions api = new MoviesFunctions();
-                // Clear old data first to force a UI update
+                // 1. Show Spinner and clear grid
+                LoadingSpinner.Visibility = Visibility.Visible;
                 MainDataGrid.ItemsSource = null;
 
-                if (_currentMode == "Movies")
-                    MainDataGrid.ItemsSource = (await api.GetAllMovies());
-                else if (_currentMode == "Theaters")
-                    MainDataGrid.ItemsSource = (await api.GetAllTheaters());
+                MoviesFunctions api = new MoviesFunctions();
+
+                // 2. Fetch Data based on mode
+                object result = null;
+                switch (_currentMode)
+                {
+                    case "Movies":
+                        result = await api.GetAllMovies();
+                        break;
+
+                    case "Theaters":
+                        result = await api.GetAllTheaters();
+                        break;
+
+                    case "Users":
+                        result = await api.GetAllUsers();
+                        break;
+
+                    case "Tickets":
+                        result = await api.GetAllTickets();
+                        break;
+
+                    default:
+                        MessageBox.Show("New Data currently unavailable");
+                        break;
+                }
+
+                // 3. Assign data to grid
+                MainDataGrid.ItemsSource = (System.Collections.IEnumerable)result;
             }
-            catch (Exception ex) { /* Log error */ }
+            catch (Exception ex)
+            {
+                /* Log error */
+                MessageBox.Show("Error loading data: " + ex.Message);
+            }
+            finally
+            {
+                // 4. Always hide the spinner, even if an error occurs
+                LoadingSpinner.Visibility = Visibility.Collapsed;
+            }
         }
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {

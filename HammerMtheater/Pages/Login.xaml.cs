@@ -102,11 +102,20 @@ namespace HammerMtheater.Pages
             NavigationService.Navigate(new Signup());
         }
 
-        private void skip_Click(object sender, RoutedEventArgs e)
+       
+
+        private void skip_Click_admin(object sender, RoutedEventArgs e)
         {
             UsernameBox.Text = "admin";
             PasswordHidden.Password = "12341234";
             EmailBox.Text = "admin@gmail.com";
+        }
+
+        private void skip_Click_user(object sender, RoutedEventArgs e)
+        {
+            UsernameBox.Text = "test";
+            PasswordHidden.Password = "1234";
+            EmailBox.Text = "test@mail.com";
         }
     }
 }
