@@ -92,5 +92,21 @@ namespace HammerMtheater.Pages
         {
             NavigationService.GoBack();
         }
+        private void Share_Click(object sender, RoutedEventArgs e)
+        {
+            string shareText = $"Check out '{_movie.MovieName}' at Hammer Mtheater! 🎬\nTrailer: {_movie.TrailerUrl}";
+            Clipboard.SetText(shareText);
+
+            // Optional: Show a little MaterialDesign Snackbar or Toast saying "Link Copied!"
+            MessageBox.Show("Movie details copied to clipboard!");
+        }
+        private void ViewCast_Click(object sender, RoutedEventArgs e)
+        {
+            // If you want to navigate to a specific Cast Page:
+            NavigationService.Navigate(new CastPage(_movie.Id));
+
+            // OR, just show a quick list for now:
+            //MessageBox.Show("Loading the cast from the database...");
+        }
     }
 }
