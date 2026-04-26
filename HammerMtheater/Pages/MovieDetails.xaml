@@ -4,21 +4,25 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
       xmlns:local="clr-namespace:HammerMtheater.Pages"
-      Background="#0A0A0F">
+      Background="#0B0E11">
+
     <Page.Resources>
-        <SolidColorBrush x:Key="AccentGold" Color="#FFEFC2"/>
-        <SolidColorBrush x:Key="ButtonBase" Color="#CCFFFFFF"/>
+        <SolidColorBrush x:Key="AccentEmerald" Color="#00C896"/>
         <SolidColorBrush x:Key="TextMain" Color="White"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#9BA1A6"/>
     </Page.Resources>
 
     <materialDesign:DialogHost Identifier="TrailerDialog" CloseOnClickAway="True" DialogClosing="DialogHost_DialogClosing">
 
         <materialDesign:DialogHost.DialogContent>
-            <Border Width="1100" Height="618" Background="#0A0A0A" CornerRadius="8" BorderThickness="1" BorderBrush="#22FFFFFF">
+            <Border Width="1100" Height="618" Background="#0B0E11" CornerRadius="20" BorderThickness="1" BorderBrush="#252A31">
                 <Grid x:Name="TrailerContainer">
                     <wv2:WebView2 x:Name="TrailerBrowser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    <Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15" Width="30" Height="30" Background="Transparent" BorderThickness="0" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                        <materialDesign:PackIcon Kind="Close" Foreground="White" Width="18" Height="18"/>
+                    <Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20" Width="40" Height="40" 
+                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            Background="#1AFFFFFF" BorderThickness="0" 
+                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                        <materialDesign:PackIcon Kind="Close" Foreground="White" Width="24" Height="24"/>
                     </Button>
                 </Grid>
             </Border>
@@ -28,52 +32,55 @@
             <Grid>
                 <Image Source="{Binding PosterUrl}" Stretch="UniformToFill">
                     <Image.Effect>
-                        <BlurEffect Radius="60"/>
+                        <BlurEffect Radius="100"/>
                     </Image.Effect>
                 </Image>
-                <Image Source="{Binding PosterUrl}" Stretch="UniformToFill" Opacity="0.6">
-                    <Image.Effect>
-                        <BlurEffect Radius="150"/>
-                    </Image.Effect>
-                </Image>
+                <Border Background="#F20B0E11"/>
                 <Border>
                     <Border.Background>
-                        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="0.9" RadiusY="0.9">
-                            <GradientStop Color="#CC0A0A0F" Offset="0.1"/>
-                            <GradientStop Color="#FF0A0A0F" Offset="1.0"/>
+                        <RadialGradientBrush Center="0.5,0.5" GradientOrigin="0.5,0.5" RadiusX="1.2" RadiusY="1.2">
+                            <GradientStop Color="#00000000" Offset="0.2"/>
+                            <GradientStop Color="#FF0B0E11" Offset="1.0"/>
                         </RadialGradientBrush>
                     </Border.Background>
                 </Border>
             </Grid>
 
-            <Grid Margin="60,80,60,60">
+            <Grid Margin="80,60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="380"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="280"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.ColumnSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,-60,0,0">
-                    <Button Content="BACK TO GALLERY" Click="Back_Click" Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource AccentGold}"/>
+                <StackPanel Grid.ColumnSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0">
+                    <Button Click="Back_Click" Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource TextSecondary}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ArrowLeft" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="BACK TO GALLERY" FontWeight="Bold" FontSize="12" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
 
                 <Grid Grid.Column="0" VerticalAlignment="Center">
-                    <Border CornerRadius="8" ClipToBounds="True">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#FFEFC2" BlurRadius="25" ShadowDepth="0" Opacity="0.3"/>
-                        </Border.Effect>
-                        <Image Source="{Binding PosterUrl}" Stretch="UniformToFill"/>
-                    </Border>
+                    <materialDesign:Card UniformCornerRadius="20" materialDesign:ElevationAssist.Elevation="Dp6">
+                        <Image Source="{Binding PosterUrl}" Stretch="UniformToFill" Height="560"/>
+                    </materialDesign:Card>
                 </Grid>
 
-                <StackPanel Grid.Column="1" Margin="80,0,0,0" VerticalAlignment="Center">
-                    <TextBlock Text="{Binding MovieName}" FontSize="84" FontWeight="Black" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                    <Rectangle Width="100" Height="3" Fill="{StaticResource AccentGold}" HorizontalAlignment="Left" Margin="0,0,0,15"/>
-                    <TextBlock Text="{Binding Genre.GenreName}" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource AccentGold}" Margin="0,0,0,25"/>
+                <StackPanel Grid.Column="1" Margin="80,0,40,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding MovieName}" FontSize="72" FontWeight="Black" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="72" Margin="0,0,0,20"/>
 
-                    <TextBlock Text="CAST" FontSize="14" FontWeight="Bold" Foreground="{StaticResource AccentGold}" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                        <Border Background="#1A00C896" Padding="12,6" CornerRadius="6">
+                            <TextBlock Text="{Binding Genre.GenreName}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource AccentEmerald}"/>
+                        </Border>
+                        <TextBlock Text="•" Foreground="{StaticResource TextSecondary}" Margin="15,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="2H 15M" Foreground="{StaticResource TextSecondary}" FontSize="14" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
 
-                    <ItemsControl x:Name="CastList" Margin="0,0,0,20">
+                    <TextBlock Text="THE CAST" FontSize="12" FontWeight="Black" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,15" />
+                    <ItemsControl x:Name="CastList" Margin="0,0,0,40">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal"/>
@@ -81,44 +88,49 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding ActorName}" Foreground="White" Margin="0,0,15,5" FontSize="14" Opacity="0.8"/>
+                                <Border Background="#0DFFFFFF" CornerRadius="15" Padding="12,6" Margin="0,0,10,10">
+                                    <TextBlock Text="{Binding ActorName}" Foreground="White" FontSize="13" Opacity="0.9"/>
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <TextBlock Text="A stunning Sci-Fi epic..." FontSize="16" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="24"/>
+                    <TextBlock Text="SYNOPSIS" FontSize="12" FontWeight="Black" Foreground="{StaticResource TextSecondary}" Margin="0,0,0,10" />
+                    <TextBlock Text="Experience the cinematic event of the year. A gripping narrative that pushes the boundaries of storytelling, featuring award-winning performances and breathtaking visual effects." 
+                               FontSize="18" Foreground="#CCFFFFFF" TextWrapping="Wrap" LineHeight="28" MaxWidth="600"/>
                 </StackPanel>
 
-                <Border Grid.Column="2" VerticalAlignment="Center" Width="220" Padding="0,30" 
-                        CornerRadius="12" Background="#44000000" BorderBrush="#22FFFFFF" BorderThickness="1">
+                <materialDesign:Card Grid.Column="2" VerticalAlignment="Center" Padding="25,40" 
+                                     UniformCornerRadius="25" Background="#16191E" 
+                                     materialDesign:ElevationAssist.Elevation="Dp3">
                     <StackPanel>
-                        <Button x:Name="BtnTickets" Content="GET TICKETS" Height="65" Margin="20,0,20,15"
-                                Background="{StaticResource AccentGold}" Foreground="#0A0A0F"
-                                FontWeight="Bold" FontSize="16" Click="BuyTicket_Click"
-                                materialDesign:ButtonAssist.CornerRadius="32"/>
+                        <Button x:Name="BtnTickets" Content="GET TICKETS" Height="60" Margin="0,0,0,15"
+                                Background="{StaticResource AccentEmerald}" Foreground="#0B0E11"
+                                FontWeight="Black" FontSize="14" Click="BuyTicket_Click"
+                                materialDesign:ButtonAssist.CornerRadius="12"/>
 
-                        <Button x:Name="BtnTrailer" Content="TRAILER" Height="65" Margin="20,0,20,25"
-                                Background="Transparent" Foreground="White" BorderBrush="White" BorderThickness="2"
-                                FontWeight="Bold" FontSize="16" Click="WatchTrailer_Click"
-                                materialDesign:ButtonAssist.CornerRadius="32"/>
+                        <Button x:Name="BtnTrailer" Content="WATCH TRAILER" Height="60" Margin="0,0,0,25"
+                                Background="Transparent" Foreground="White" BorderBrush="#252A31" BorderThickness="1"
+                                FontWeight="Bold" FontSize="14" Click="WatchTrailer_Click"
+                                materialDesign:ButtonAssist.CornerRadius="12"/>
 
-                        <Separator Background="#22FFFFFF" Margin="30,0,30,20"/>
+                        <Separator Background="#252A31" Margin="10,0,10,20"/>
 
-                        <Button Click="ViewCast_Click" Style="{StaticResource MaterialDesignFlatButton}" Foreground="White" Margin="10,0" Height="45">
+                        <Button Click="ViewCast_Click" Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource TextSecondary}" Height="45">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="AccountGroup" Width="20" Height="20" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="VIEW FULL CAST" FontSize="13" VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="AccountGroupOutline" Width="20" Height="20" Margin="0,0,12,0"/>
+                                <TextBlock Text="FULL CAST" FontSize="12" FontWeight="Bold"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Click="Share_Click" Style="{StaticResource MaterialDesignFlatButton}" Foreground="White" Margin="10,0" Height="45">
+                        <Button Click="Share_Click" Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource TextSecondary}" Height="45">
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="ShareVariant" Width="18" Height="18" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="SHARE MOVIE" FontSize="13" VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="ShareVariantOutline" Width="20" Height="20" Margin="0,0,12,0"/>
+                                <TextBlock Text="SHARE" FontSize="12" FontWeight="Bold"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                </Border>
+                </materialDesign:Card>
             </Grid>
         </Grid>
     </materialDesign:DialogHost>

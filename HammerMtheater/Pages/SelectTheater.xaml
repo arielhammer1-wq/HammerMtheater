@@ -1,41 +1,35 @@
 ﻿<Page x:Class="HammerMtheater.Pages.SelectTheater"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Background="#0A0A0A">
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Background="#0B0E11">
 
-    <Grid Margin="40">
+    <Grid Margin="60,40">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,30">
+        <StackPanel Grid.Row="0" Margin="0,0,0,40">
+            <Button Content=" BACK" FontFamily="Material Design Icons" 
+                    Background="#1AFFFFFF" Foreground="#9BA1A6" 
+                    BorderThickness="0" HorizontalAlignment="Left" 
+                    Padding="15,0" Height="32" FontSize="11" FontWeight="Bold" 
+                    materialDesign:ButtonAssist.CornerRadius="6"
+                    Click="Back_Click" Margin="0,0,0,20"/>
+
             <TextBlock Text="LOCATION SELECTION"
-                       FontSize="12"
-                       FontWeight="Bold"
-                       Foreground="#E50914"
-                       Margin="0,0,0,5"/>
+                       FontSize="11"
+                       FontWeight="Black"
+                     
+                       Foreground="#00C896"
+                       Margin="0,0,0,8"/>
             <TextBlock Text="Choose your Cinema"
-                       FontSize="32"
-                       FontWeight="ExtraBold"
-                       Foreground="White"/>
-            <Button Content="← BACK"
-         Width="100"
-         Height="35"
-         Background="#252525"
-         Foreground="#BBBBBB"
-         BorderThickness="0"
-         HorizontalAlignment="Left"
-         FontSize="11"
-         FontWeight="Bold"
-         Click="Back_Click">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="4"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+                       FontSize="56"
+                       FontWeight="Black"
+                       Foreground="White"
+                       />
         </StackPanel>
 
         <ListBox x:Name="TheaterListBox"
@@ -48,33 +42,38 @@
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Padding" Value="0"/>
-                    <Setter Property="Margin" Value="0,0,0,15"/>
+                    <Setter Property="Margin" Value="0,0,0,18"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
                                 <Border x:Name="ItemBorder"
-                                        Background="#181818"
-                                        BorderBrush="#333"
+                                        Background="#16191E"
+                                        BorderBrush="#252A31"
                                         BorderThickness="1"
-                                        CornerRadius="10"
-                                        Padding="20,15">
+                                        CornerRadius="16"
+                                        Padding="24,20">
                                     <Grid>
                                         <ContentPresenter x:Name="ContentHost"/>
                                         <Ellipse x:Name="SelectionIndicator" 
-                                                 Fill="#E50914" 
+                                                 Fill="#00C896" 
                                                  Width="8" Height="8" 
                                                  HorizontalAlignment="Right" 
-                                                 Visibility="Collapsed"/>
+                                                 VerticalAlignment="Center"
+                                                 Visibility="Collapsed">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect BlurRadius="10" Color="#00C896" Opacity="0.6" ShadowDepth="0"/>
+                                            </Ellipse.Effect>
+                                        </Ellipse>
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="ItemBorder" Property="Background" Value="#222"/>
-                                        <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#666"/>
+                                        <Setter TargetName="ItemBorder" Property="Background" Value="#1C2128"/>
+                                        <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#3F4752"/>
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#E50914"/>
-                                        <Setter TargetName="ItemBorder" Property="Background" Value="#251010"/>
+                                        <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#00C896"/>
+                                        <Setter TargetName="ItemBorder" Property="Background" Value="#0D00C896"/>
                                         <Setter TargetName="SelectionIndicator" Property="Visibility" Value="Visible"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
@@ -87,44 +86,49 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="40" Height="40" Background="#333" CornerRadius="20" Margin="0,0,15,0">
-                            <TextBlock Text="📍" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                        <Border Width="52" Height="52" Background="#1AFFFFFF" CornerRadius="12" Margin="0,0,20,0">
+                            <materialDesign:PackIcon Kind="MapMarkerOutline" VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center" Foreground="#00C896" 
+                                                   Width="26" Height="26"/>
                         </Border>
 
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="{Binding NameOfTheater}"
                                        Foreground="White"
                                        FontSize="20"
-                                       FontWeight="SemiBold"/>
-                            <TextBlock Text="Standard &amp; VIP Halls Available" 
-                                       Foreground="#666" 
-                                       FontSize="11" 
-                                       Margin="0,2,0,0"/>
-                            
+                                       FontWeight="Black"
+                                      />
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <materialDesign:PackIcon Kind="StarOutline" Foreground="#555E67" Width="14" Height="14" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Text="Standard &amp; VIP Halls Available" 
+                                           Foreground="#9BA1A6" 
+                                           FontSize="11" 
+                                           FontWeight="Bold"
+                                           />
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
 
-        <Border Grid.Row="2" Padding="0,20,0,0" BorderBrush="#222" BorderThickness="0,1,0,0">
-            <Button Height="55"
-                    Width="280"
-                    Content="CONFIRM SELECTION"
-                    Background="#E50914"
-                    Foreground="White"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    BorderThickness="0"
+        <StackPanel Grid.Row="2" Margin="0,20,0,0">
+            <Separator Background="#252A31" Margin="0,0,0,30"/>
+            <Button Height="60"
+                    Width="320"
+                    Content="CONFIRM LOCATION"
+                    Background="#00C896"
+                    Foreground="#0B0E11"
+                    FontSize="14"
+                    FontWeight="Black"
+                    materialDesign:ButtonAssist.CornerRadius="30"
                     HorizontalAlignment="Center"
-                    Click="Continue_Click">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="27"/>
-                    </Style>
-                </Button.Resources>
+                    Click="Continue_Click"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="20" Color="#00C896" Opacity="0.2" ShadowDepth="0"/>
+                </Button.Effect>
             </Button>
-        </Border>
+        </StackPanel>
     </Grid>
 </Page>

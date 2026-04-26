@@ -2,109 +2,124 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      Background="#050505">
+      Background="#0B0E11">
 
     <Grid>
-        <Ellipse Width="600" Height="600"
-                 Fill="#12E50914"
+        <Ellipse Width="800" Height="800"
+                 Fill="#0800C896"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 Margin="-200,-200,0,0">
+                 Margin="-300,-300,0,0">
+            <Ellipse.Effect>
+                <BlurEffect Radius="120"/>
+            </Ellipse.Effect>
+        </Ellipse>
+
+        <Ellipse Width="600" Height="600"
+                 Fill="#0500C896"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Bottom"
+                 Margin="0,0,-200,-200">
             <Ellipse.Effect>
                 <BlurEffect Radius="100"/>
             </Ellipse.Effect>
         </Ellipse>
 
-        <Border Width="400"
-                Padding="40"
-                Background="#161616"
-                CornerRadius="15"
-                BorderBrush="#333"
-                BorderThickness="1.5"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Opacity="0.5"/>
-            </Border.Effect>
+        <materialDesign:Card Width="420"
+                             Padding="45,40"
+                             Background="#16191E"
+                             UniformCornerRadius="25"
+                             BorderBrush="#252A31"
+                             BorderThickness="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center">
+            <materialDesign:Card.Effect>
+                <DropShadowEffect BlurRadius="40" ShadowDepth="0" Opacity="0.3" Color="Black"/>
+            </materialDesign:Card.Effect>
 
             <StackPanel>
-                <materialDesign:PackIcon Kind="AccountPlus"
-                                         Width="45" Height="45"
-                                         Foreground="#E50914"
+                <materialDesign:PackIcon Kind="AccountPlusOutline"
+                                         Width="50" Height="50"
+                                         Foreground="#00C896"
                                          HorizontalAlignment="Center"
-                                         Margin="0,0,0,10"/>
+                                         Margin="0,0,0,15"/>
 
                 <TextBlock Text="Join the Experience"
                            Foreground="White"
-                           FontSize="28"
-                           FontWeight="ExtraBold"
+                           FontSize="32"
+                           FontWeight="Black"
                            HorizontalAlignment="Center"
+                           
                            Margin="0,0,0,5"/>
 
-                <TextBlock Text="Create your Hammer Cinema account"
-                           Foreground="#666"
-                           FontSize="12"
+                <TextBlock Text="CREATE YOUR CINEMATIC IDENTITY"
+                           Foreground="#555E67"
+                           FontSize="10"
+                           FontWeight="Black"
+                           
                            HorizontalAlignment="Center"
-                           Margin="0,0,0,30"/>
+                           Margin="0,0,0,35"/>
 
                 <TextBox x:Name="SignupUsername"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          materialDesign:HintAssist.Hint="Username"
+                         materialDesign:TextFieldAssist.HasClearButton="True"
                          Foreground="White"
-                         BorderBrush="#444"
-                         Margin="0,0,0,16"/>
+                         Margin="0,0,0,18"/>
 
                 <TextBox x:Name="SignupEmail"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          materialDesign:HintAssist.Hint="Email Address"
+                         materialDesign:TextFieldAssist.HasClearButton="True"
                          Foreground="White"
-                         BorderBrush="#444"
-                         Margin="0,0,0,16"/>
+                         Margin="0,0,0,18"/>
 
                 <PasswordBox x:Name="SignupPassword"
                              Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                              materialDesign:HintAssist.Hint="Password"
                              Foreground="White"
-                             BorderBrush="#444"
-                             Margin="0,0,0,16"/>
+                             Margin="0,0,0,18"/>
 
                 <PasswordBox x:Name="ConfirmPassword"
                              Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                              materialDesign:HintAssist.Hint="Confirm Password"
+                             materialDesign:PasswordBoxAssist.IsPasswordRevealed="True"
                              Foreground="White"
-                             BorderBrush="#444"
-                             Margin="0,0,0,24"/>
+                             Margin="0,0,0,28"/>
 
-                <Button Height="50"
-                        Background="#E50914"
-                        BorderBrush="#E50914"
-                        Foreground="White"
-                        FontWeight="Bold"
+                <Button Height="55"
+                        Background="#00C896"
+                        BorderBrush="#00C896"
+                        Foreground="#0B0E11"
+                        FontWeight="Black"
                         FontSize="14"
+                        materialDesign:ButtonAssist.CornerRadius="12"
                         Click="Signup_Click">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="8"/>
-                        </Style>
-                    </Button.Resources>
-                    <TextBlock Text="CREATE ACCOUNT"/>
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="15" Color="#00C896" Opacity="0.3" ShadowDepth="0"/>
+                    </Button.Effect>
+                    <TextBlock Text="INITIALIZE ACCOUNT" />
                 </Button>
 
                 <TextBlock x:Name="SignupError"
                            Foreground="#FF5252"
                            FontSize="12"
+                           FontWeight="SemiBold"
                            HorizontalAlignment="Center"
                            Margin="0,15,0,0"
-                           TextWrapping="Wrap"/>
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
 
-                <Button Content="Already have an account? Sign In"
+                <Button Content="ALREADY A MEMBER? SIGN IN"
                         Style="{StaticResource MaterialDesignFlatButton}"
-                        Foreground="#999999"
-                        FontSize="12"
-                        Margin="0,20,0,0"
+                        Foreground="#9BA1A6"
+                        FontSize="11"
+                        FontWeight="Black"
+                        
+                        Margin="0,25,0,0"
                         Click="BackToLogin_Click"/>
 
             </StackPanel>
-        </Border>
+        </materialDesign:Card>
     </Grid>
 </Page>

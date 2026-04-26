@@ -2,24 +2,66 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      Title="CastPage" Background="#0A0A0F">
+      Title="CastPage" 
+      Background="#0B0E11">
 
     <Grid Margin="40">
         <StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
-                <Button Click="Back_Click" Content="BACK" Background="#FFC107" BorderBrush="{x:Null}" Foreground="Black"/>
-                <TextBlock Text="THE CAST" FontSize="36" FontWeight="Bold" Foreground="White" Margin="20,0,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,40">
+                <Button Click="Back_Click" 
+                        Content="BACK" 
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        BorderBrush="#00C896" 
+                        Foreground="#00C896"
+                        Width="100"
+                        Height="45"
+                        materialDesign:ButtonAssist.CornerRadius="22"/>
+
+                <StackPanel Margin="25,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="THE CAST" 
+                               FontSize="38" 
+                               FontWeight="Black" 
+                               Foreground="White"/>
+                    <Rectangle Height="3" Width="50" Fill="#00C896" HorizontalAlignment="Left" Margin="2,0,0,0"/>
+                </StackPanel>
             </StackPanel>
 
             <ItemsControl x:Name="ActorsList">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="#1A1A22" Margin="10" Padding="15" CornerRadius="10">
+                        <materialDesign:Card Background="#16191E" 
+                                             Width="240"
+                                             Margin="0,0,20,20" 
+                                             Padding="20" 
+                                             UniformCornerRadius="12"
+                                             materialDesign:ElevationAssist.Elevation="Dp3"
+                                             materialDesign:ShadowAssist.Darken="True"
+                                             materialDesign:ShadowAssist.CacheMode="BitmapCache">
                             <StackPanel>
-                                <TextBlock Text="{Binding ArtistName}" FontSize="18" Foreground="White" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding ArtistRole.RoleName}" FontSize="14" Foreground="#FFC107"/>
+                                <TextBlock Text="{Binding ArtistName}" 
+                                           FontSize="18" 
+                                           Foreground="White" 
+                                           FontWeight="Bold"
+                                           TextWrapping="Wrap"/>
+
+                                <Border Background="#1A2E29" 
+                                        HorizontalAlignment="Left" 
+                                        Padding="10,4" 
+                                        CornerRadius="6" 
+                                        Margin="0,12,0,0">
+                                    <TextBlock Text="{Binding ArtistRole.RoleName}" 
+                                               FontSize="11" 
+                                               Foreground="#00C896" 
+                                               FontWeight="SemiBold"/>
+                                </Border>
                             </StackPanel>
-                        </Border>
+                        </materialDesign:Card>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -39,5 +39,9 @@ namespace HammerMtheater.Pages
             // Replace 'MyTickets' with your actual Tickets page class name
             NavigationService.Navigate(new MyTickets());
         }
+        private void Account_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UserProfile());
+        }
     }
 }
