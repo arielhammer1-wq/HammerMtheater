@@ -4,7 +4,7 @@
         Title="HammerM Theater"
         WindowStyle="ThreeDBorderWindow" 
          
-        Topmost="True">
+        Topmost="False">
 
     <Grid>
         <Frame x:Name="MainFrame"

@@ -4,134 +4,143 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Foreground="White">
 
-    <Grid>
-        <MediaElement x:Name="BackgroundVideo"
-                      LoadedBehavior="Manual"
-                      UnloadedBehavior="Stop"
-                      Stretch="UniformToFill"
-                      IsMuted="True"
-                      MediaEnded="BackgroundVideo_MediaEnded"/>
+    <!-- Wrap everything in the DialogHost -->
+    <materialDesign:DialogHost Identifier="RootDialog">
+        <Grid>
+            <MediaElement x:Name="BackgroundVideo"
+                          LoadedBehavior="Manual"
+                          UnloadedBehavior="Stop"
+                          Stretch="UniformToFill"
+                          IsMuted="True"
+                          MediaEnded="BackgroundVideo_MediaEnded"/>
 
-        <Border IsHitTestVisible="False">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="#660B0E11" Offset="0"/>
-                    <GradientStop Color="#000B0E11" Offset="0.4"/>
-                    <GradientStop Color="#FF0B0E11" Offset="0.95"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
+            <Border IsHitTestVisible="False">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="#660B0E11" Offset="0"/>
+                        <GradientStop Color="#000B0E11" Offset="0.4"/>
+                        <GradientStop Color="#FF0B0E11" Offset="0.95"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
 
-        <Grid Margin="60,40">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+            <Grid Margin="60,40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <DockPanel Grid.Row="0" LastChildFill="False">
-                <StackPanel DockPanel.Dock="Left">
-                    <TextBlock Text="HAMMER" Foreground="#00C896" FontSize="32" FontWeight="Black"/>
-                    <TextBlock Text="PREMIUM CINEMAS" Foreground="#9BA1A6" FontSize="10" FontWeight="Bold" Margin="2,-5,0,0"/>
+                <DockPanel Grid.Row="0" LastChildFill="False">
+                    <StackPanel DockPanel.Dock="Left">
+                        <TextBlock Text="HAMMER" Foreground="#00C896" FontSize="32" FontWeight="Black"/>
+                        <TextBlock Text="PREMIUM CINEMAS" Foreground="#9BA1A6" FontSize="10" FontWeight="Bold" Margin="2,-5,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- This button triggers the Support method -->
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="#9BA1A6" Content="SUPPORT" Margin="0,0,20,0" Click="Support"/>
+
+                        <materialDesign:Card UniformCornerRadius="12" Width="45" Height="45" Background="#1AFFFFFF" 
+                                             materialDesign:ElevationAssist.Elevation="Dp1">
+                            <Button Click="Account_Click" Background="Transparent" BorderThickness="0" Margin="8,9,7,4" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <materialDesign:Card x:Name="CardBorder" Background="#0DFFFFFF" UniformCornerRadius="20" 
+                                         Padding="25,0" materialDesign:ElevationAssist.Elevation="Dp1">
+                                            <Grid>
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <TextBlock Text="ACCOUNT" FontSize="12" FontWeight="Black" Foreground="#9BA1A6" />
+                                                    <TextBlock Text="View My Profile" FontSize="22" FontWeight="Bold" Foreground="White"/>
+                                                </StackPanel>
+                                                <materialDesign:PackIcon Kind="AccountCircleOutline" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                 Width="30" Height="30" Foreground="#9BA1A6" x:Name="Icon"/>
+                                            </Grid>
+                                        </materialDesign:Card>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="CardBorder" Property="Background" Value="#1AFFFFFF"/>
+                                                <Setter TargetName="Icon" Property="Foreground" Value="#00C896"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </DockPanel>
+
+                <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="800">
+                    <Border Background="#00C896" HorizontalAlignment="Left" Padding="12,4" CornerRadius="4" Margin="0,0,0,15">
+                        <TextBlock Text="NOW SHOWING" FontSize="10" FontWeight="Black" Foreground="#0B0E11"/>
+                    </Border>
+                    <TextBlock Text="THE FUTURE OF" FontSize="72" FontWeight="Black" Foreground="White">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <TextBlock Text="CINEMA." FontSize="96" FontWeight="Black" Foreground="#00C896" Margin="0,-20,0,20"/>
+                    <TextBlock  TextWrapping="Wrap" Text="Immersive 4K visuals. Professional-grade audio. The ultimate sanctuary for movie lovers." 
+                               Foreground="PaleGreen" FontSize="18" MaxWidth="500" LineHeight="26"/>
                 </StackPanel>
 
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="#9BA1A6" Content="SUPPORT" Margin="0,0,20,0"/>
-                    <materialDesign:Card UniformCornerRadius="12" Width="45" Height="45" Background="#1AFFFFFF" 
-                                         materialDesign:ElevationAssist.Elevation="Dp1">
-                        <Button Click="Account_Click" Background="Transparent" BorderThickness="0" Margin="15,0,0,0" Cursor="Hand">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <materialDesign:Card x:Name="CardBorder" Background="#0DFFFFFF" UniformCornerRadius="20" 
-                                 Padding="25,0" materialDesign:ElevationAssist.Elevation="Dp1">
-                                        <Grid>
-                                            <StackPanel VerticalAlignment="Center">
-                                                <TextBlock Text="ACCOUNT" FontSize="12" FontWeight="Black" Foreground="#9BA1A6" />
-                                                <TextBlock Text="View My Profile" FontSize="22" FontWeight="Bold" Foreground="White"/>
-                                            </StackPanel>
-                                            <materialDesign:PackIcon Kind="AccountCircleOutline" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                                             Width="30" Height="30" Foreground="#9BA1A6" x:Name="Icon"/>
-                                        </Grid>
-                                    </materialDesign:Card>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="CardBorder" Property="Background" Value="#1AFFFFFF"/>
-                                            <Setter TargetName="Icon" Property="Foreground" Value="#00C896"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </materialDesign:Card>
-                </StackPanel>
-            </DockPanel>
+                <UniformGrid Grid.Row="2" Columns="2" Height="140" Margin="0,20,0,0">
+                    <Button Click="Movies_Click" Background="Transparent" BorderThickness="0" Margin="0,54,0,36" Cursor="Hand" RenderTransformOrigin="0.5,0.5" Height="50">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <materialDesign:Card x:Name="CardBorder" Background="#1AFFFFFF" UniformCornerRadius="20" 
+                                                     Padding="25,0" materialDesign:ElevationAssist.Elevation="Dp2">
+                                    <Grid>
+                                        <StackPanel VerticalAlignment="Top" Margin="0,-7,0,0">
+                                            <TextBlock Text="EXPLORE" FontSize="12" FontWeight="Black" Foreground="#00C896"/>
+                                            <TextBlock Text="Movie Showtimes" FontSize="22" FontWeight="Bold" Foreground="White"/>
+                                        </StackPanel>
+                                        <materialDesign:PackIcon Kind="ChevronRight" Height="30" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </materialDesign:Card>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="CardBorder" Property="Background" Value="#25FFFFFF"/>
+                                        <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00C896"/>
+                                        <Setter TargetName="CardBorder" Property="BorderThickness" Value="1"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-            <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="800">
-                <Border Background="#00C896" HorizontalAlignment="Left" Padding="12,4" CornerRadius="4" Margin="0,0,0,15">
-                    <TextBlock Text="NOW SHOWING" FontSize="10" FontWeight="Black" Foreground="#0B0E11"/>
-                </Border>
-                <TextBlock Text="THE FUTURE OF" FontSize="72" FontWeight="Black" Foreground="White">
-                    <TextBlock.Effect>
-                        <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-                <TextBlock Text="CINEMA." FontSize="96" FontWeight="Black" Foreground="#00C896" Margin="0,-20,0,20"/>
-                <TextBlock Text="Immersive 4K visuals. Professional-grade audio. The ultimate sanctuary for movie lovers." 
-                           Foreground="#BBFFFFFF" FontSize="18" MaxWidth="500" LineHeight="26"/>
-            </StackPanel>
-
-            <UniformGrid Grid.Row="2" Columns="2" Height="140" Margin="0,20,0,0">
-
-                <Button Click="Movies_Click" Background="Transparent" BorderThickness="0" Margin="0,0,15,0" Cursor="Hand">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <materialDesign:Card x:Name="CardBorder" Background="#1AFFFFFF" UniformCornerRadius="20" 
-                                                 Padding="25,0" materialDesign:ElevationAssist.Elevation="Dp2">
-                                <Grid>
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Text="EXPLORE" FontSize="12" FontWeight="Black" Foreground="#00C896"/>
-                                        <TextBlock Text="Movie Showtimes" FontSize="22" FontWeight="Bold" Foreground="White"/>
-                                    </StackPanel>
-                                    <materialDesign:PackIcon Kind="ChevronRight" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                                                             Width="30" Height="30" Foreground="White" x:Name="Icon"/>
-                                </Grid>
-                            </materialDesign:Card>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="CardBorder" Property="Background" Value="#25FFFFFF"/>
-                                    <Setter TargetName="CardBorder" Property="BorderBrush" Value="#00C896"/>
-                                    <Setter TargetName="CardBorder" Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-                <Button Click="My_Tickets_Click" Background="Transparent" BorderThickness="0" Margin="15,0,0,0" Cursor="Hand">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <materialDesign:Card x:Name="CardBorder" Background="#0DFFFFFF" UniformCornerRadius="20" 
-                                                 Padding="25,0" materialDesign:ElevationAssist.Elevation="Dp1">
-                                <Grid>
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Text="USER" FontSize="12" FontWeight="Black" Foreground="#9BA1A6"/>
-                                        <TextBlock Text="My Tickets" FontSize="22" FontWeight="Bold" Foreground="White"/>
-                                    </StackPanel>
-                                    <materialDesign:PackIcon Kind="Ticket" HorizontalAlignment="Right" VerticalAlignment="Center" 
-                                                             Width="30" Height="30" Foreground="#9BA1A6" x:Name="Icon"/>
-                                </Grid>
-                            </materialDesign:Card>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="CardBorder" Property="Background" Value="#1AFFFFFF"/>
-                                    <Setter TargetName="Icon" Property="Foreground" Value="#00C896"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-            </UniformGrid>
+                    <Button Click="My_Tickets_Click" Background="Transparent" BorderThickness="0" Margin="15,54,0,36" Cursor="Hand" Height="50">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <materialDesign:Card x:Name="CardBorder" Background="#0DFFFFFF" UniformCornerRadius="20" 
+                                                     Padding="25,0" materialDesign:ElevationAssist.Elevation="Dp1">
+                                    <Grid>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock Text="USER" FontSize="12" FontWeight="Black" Foreground="#9BA1A6"/>
+                                            <TextBlock Text="My Tickets" FontSize="22" FontWeight="Bold" Foreground="White"/>
+                                        </StackPanel>
+                                        <materialDesign:PackIcon Kind="Ticket" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                                 Width="30" Height="30" Foreground="#9BA1A6" x:Name="Icon"/>
+                                    </Grid>
+                                </materialDesign:Card>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="Icon" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Setter TargetName="CardBorder" Property="Background" Value="#1AFFFFFF"/>
+                                        <Setter TargetName="Icon" Property="Foreground" Value="#00C896"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </UniformGrid>
+            </Grid>
         </Grid>
-    </Grid>
+    </materialDesign:DialogHost>
 </Page>
