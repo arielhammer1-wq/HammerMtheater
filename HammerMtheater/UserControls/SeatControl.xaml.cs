@@ -19,7 +19,7 @@ namespace HammerMtheater.UserControls
             SeatNumber = seatNumber;
             IsAvailable = isAvailable;
 
-            SeatText.Text = seatNumber.ToString();
+            if (SeatText != null) SeatText.Text = seatNumber.ToString();
             UpdateColor();
         }
 
@@ -31,18 +31,33 @@ namespace HammerMtheater.UserControls
 
         public void ToggleSelected()
         {
+            if (!IsAvailable) return;
             IsSelected = !IsSelected;
             UpdateColor();
         }
 
         private void UpdateColor()
         {
+            if (Root == null || Backrest == null || SeatCushion == null) return;
+
             if (!IsAvailable)
-                Root.Background = Brushes.Gray;
+            {
+                Backrest.Background = Brushes.Gray;
+                SeatCushion.Background = Brushes.Gray;
+                Root.Opacity = 0.5;
+            }
             else if (IsSelected)
-                Root.Background = Brushes.Red;
+            {
+                Backrest.Background = Brushes.Red;
+                SeatCushion.Background = Brushes.Red;
+                Root.Opacity = 1.0;
+            }
             else
-                Root.Background = Brushes.Green;
+            {
+                Backrest.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                SeatCushion.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                Root.Opacity = 1.0;
+            }
         }
     }
 }

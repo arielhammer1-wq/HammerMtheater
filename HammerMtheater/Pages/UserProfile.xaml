@@ -20,7 +20,7 @@
             </Button>
             <TextBlock Text="MY ACCOUNT" VerticalAlignment="Center" 
                        Foreground="#00C896" FontWeight="Black" 
-                        FontSize="12" Margin="15,0,0,0"/>
+                       FontSize="12" Margin="15,0,0,0"/>
         </DockPanel>
 
         <materialDesign:Card Grid.Row="1" Background="#16191E" 
@@ -59,56 +59,17 @@
 
             <ListBox Grid.Row="1" x:Name="TicketsList" Background="Transparent" 
                      BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <ContentPresenter />
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-
-                <ListBoxItem>
-                    <materialDesign:Card Background="#16191E" UniformCornerRadius="15" 
-                                         Margin="0,0,0,15" Padding="20" BorderBrush="#252A31" 
-                                         BorderThickness="1">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0" Width="60" HorizontalAlignment="Center">
-                                <TextBlock Text="APR" Foreground="#555E67" FontWeight="Black" HorizontalAlignment="Center" FontSize="10"/>
-                                <TextBlock Text="28" Foreground="White" FontWeight="Black" HorizontalAlignment="Center" FontSize="24"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" Margin="30,0">
-                                <TextBlock Text="DUNE: PART TWO" Foreground="White" FontSize="18" FontWeight="Bold"/>
-                                <TextBlock Text="Hammer Cinema - Hall 4 • Seats: G12, G13" Foreground="#9BA1A6" FontSize="12" Margin="0,4,0,0"/>
-                            </StackPanel>
-
-                            <Border Grid.Column="2" Background="#1A00C896" VerticalAlignment="Center" 
-                                    CornerRadius="10" Padding="15,6">
-                                <TextBlock Text="CONFIRMED" Foreground="#00C896" FontWeight="Black" FontSize="10"/>
-                            </Border>
-                            <Grid x:Name="LoadingOverlay" Visibility="Collapsed" Background="#CC0B0E11">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
-                     Value="0" IsIndeterminate="True" 
-                     Width="50" Height="50" Foreground="#00C896"/>
-                                    <TextBlock Text="Loading your tickets..." Margin="0,20,0,0" 
-                   Foreground="White" FontWeight="Bold"/>
-                                </StackPanel>
-                            </Grid>
-                        </Grid>
-                    </materialDesign:Card>
-                </ListBoxItem>
             </ListBox>
+        </Grid>
+
+        <Grid x:Name="LoadingOverlay" Visibility="Collapsed" Background="#CC0B0E11" Grid.RowSpan="3">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
+                             Value="0" IsIndeterminate="True" 
+                             Width="50" Height="50" Foreground="#00C896"/>
+                <TextBlock Text="Loading your tickets..." Margin="0,20,0,0" 
+                           Foreground="White" FontWeight="Bold"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

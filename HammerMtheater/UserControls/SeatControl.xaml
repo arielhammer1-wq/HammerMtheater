@@ -1,28 +1,30 @@
 ﻿<UserControl x:Class="HammerMtheater.UserControls.SeatControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Height="45" Width="40">
+             Width="50" Height="50"
+             MouseLeftButtonUp="Seat_Click">
 
-    <Grid x:Name="Root" Cursor="Hand" MouseLeftButtonUp="Seat_Click" Background="Transparent">
-        <Grid Margin="2">
-            <Border x:Name="Backrest" 
-                    Background="#2A2A2A" 
-                    Height="12" VerticalAlignment="Top" 
-                    CornerRadius="6,6,2,2" Margin="4,0"/>
+    <Grid x:Name="Root">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
 
-            <Border Width="4" HorizontalAlignment="Left" Background="#151515" CornerRadius="2" Margin="0,8,0,5"/>
-            <Border Width="4" HorizontalAlignment="Right" Background="#151515" CornerRadius="2" Margin="0,8,0,5"/>
+            <!-- Backrest -->
+            <Border x:Name="Backrest"
+                    Width="36" Height="18"
+                    CornerRadius="6,6,0,0"
+                    Background="#2A2A2A"/>
 
-            <Border x:Name="SeatCushion" 
-                    Background="#2A2A2A" 
-                    Margin="4,10,4,0" 
-                    CornerRadius="4,4,8,8">
-                <TextBlock x:Name="SeatText"
-                           Foreground="#666"
-                           FontSize="9"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-            </Border>
-        </Grid>
+            <!-- Seat Cushion -->
+            <Border x:Name="SeatCushion"
+                    Width="40" Height="20"
+                    CornerRadius="4"
+                    Background="#2A2A2A"/>
+
+            <!-- Seat Number -->
+            <TextBlock x:Name="SeatText"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       FontSize="9"
+                       FontWeight="SemiBold"/>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -1,11 +1,7 @@
 ﻿<Window x:Class="HammerMtheater.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="HammerM Theater"
-        WindowStyle="ThreeDBorderWindow" 
-         
-        Topmost="False">
-
+        Title="HammerMtheater" Height="800" Width="1200">
     <Grid>
         <Frame x:Name="MainFrame"
                NavigationUIVisibility="Hidden"/>
