@@ -1,107 +1,131 @@
 ﻿using Model;
 using MoviesInterface;
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace HammerMtheater.Pages
 {
     public partial class Signup : Page
     {
         MoviesFunctions moviesFunctions = new MoviesFunctions();
+        private bool _isPasswordVisible = false;
 
         public Signup()
         {
             InitializeComponent();
         }
 
-        private async void  Signup_Click(object sender, RoutedEventArgs e)
+        private async void Signup_Click(object sender, RoutedEventArgs e)
         {
-            string username = SignupUsername.Text;
-            string password = SignupPassword.Password;
-            string email = SignupEmail.Text;
+            SignupError.Text = "";
+            string username = SignupUsername.Text.Trim();
+            string email = SignupEmail.Text.Trim();
+            string password = _isPasswordVisible ? SignupPasswordVisible.Text : SignupPassword.Password;
 
-            if (SignupUsername.Text == "" ||
-                SignupPassword.Password == "" ||
-                ConfirmPassword.Password == ""||
-                SignupEmail.Text=="")
+            // 1. Basic Validation
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(ConfirmPassword.Password))
             {
-                SignupError.Text = "All fields are required";
+                SetErrorMessage("All fields are required.");
                 return;
             }
 
-            
+            if (password != ConfirmPassword.Password)
+            {
+                SetErrorMessage("Passwords do not match.");
+                return;
+            }
+
+            if (password.Length < 8)
+            {
+                SetErrorMessage("Password must be at least 8 characters long.");
+                return;
+            }
 
             if (!IsValidEmail(email, out string emailError))
             {
-                SignupError.Text = emailError;
+                SetErrorMessage(emailError);
                 return;
             }
-            UserList users = await moviesFunctions.GetAllUsers();
 
-            var existingUser = users.Find(u =>
-                u.Username == SignupUsername.Text || u.Email == SignupEmail.Text);
-
-            if (existingUser != null)
+            try
             {
-                SignupError.Text = "Username or email already exists.";
-                return;
+                // UI Feedback: Loading
+                BtnInitialize.IsEnabled = false;
+                SignupError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00C896"));
+                SignupError.Text = "Creating account...";
+
+                // 2. Check for existing users
+                UserList users = await moviesFunctions.GetAllUsers();
+                var existingUser = users.Find(u =>
+                    u.Username?.Equals(username, StringComparison.OrdinalIgnoreCase) == true ||
+                    u.Email?.Equals(email, StringComparison.OrdinalIgnoreCase) == true);
+
+                if (existingUser != null)
+                {
+                    SetErrorMessage("Username or email already exists.");
+                    BtnInitialize.IsEnabled = true;
+                    return;
+                }
+
+                // 3. Create User
+                User newUser = new User()
+                {
+                    Username = username,
+                    Email = email,
+                    Pass = password,
+                    Roleid = 1 // Default Member Role
+                };
+
+                moviesFunctions.InsertUser(newUser);
+
+                MessageBox.Show("Welcome to the theater! Your account has been initialized.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new Login());
             }
-            if (SignupPassword.Password != ConfirmPassword.Password)
+            catch (Exception ex)
             {
-                SignupError.Text = "Passwords do not match";
-                return;
+                SetErrorMessage("System error: " + ex.Message);
+                BtnInitialize.IsEnabled = true;
             }
-            if (password.Length < 8)
-            {
-                SignupError.Text = "Password must be at least 8 characters long";
-                return;
-            }
-
-            User user = new User() { Email=email, Pass=password ,Username=username};
-            moviesFunctions.InsertUser(user);
-
-            MessageBox.Show("Account created!");
-
-
-
-            NavigationService.Navigate(new Login());
         }
+
+        private void SetErrorMessage(string message)
+        {
+            SignupError.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF5252"));
+            SignupError.Text = message;
+        }
+
+        private void TogglePass_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isPasswordVisible)
+            {
+                SignupPassword.Password = SignupPasswordVisible.Text;
+                SignupPasswordVisible.Visibility = Visibility.Collapsed;
+                SignupPassword.Visibility = Visibility.Visible;
+                EyeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.EyeOutline;
+            }
+            else
+            {
+                SignupPasswordVisible.Text = SignupPassword.Password;
+                SignupPassword.Visibility = Visibility.Collapsed;
+                SignupPasswordVisible.Visibility = Visibility.Visible;
+                EyeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.EyeOffOutline;
+            }
+            _isPasswordVisible = !_isPasswordVisible;
+        }
+
         private bool IsValidEmail(string email, out string error)
         {
             error = "";
-
-            if (!email.Contains("@"))
+            if (!email.Contains("@") || !email.Contains("."))
             {
-                error = "Email must contain '@'.";
+                error = "Please enter a valid email address.";
                 return false;
             }
-
-            var parts = email.Split('@');
-            if (parts.Length != 2)
-            {
-                error = "Email format is invalid.";
-                return false;
-            }
-
-            string local = parts[0];
-            string domain = parts[1];
-
-
-            // Only allow letters, numbers, dots, underscores, dashes in local part
-            if (!System.Text.RegularExpressions.Regex.IsMatch(local, @"^[A-Za-z0-9._-]+$"))
-            {
-                error = "Email local part contains invalid characters.";
-                return false;
-            }
-
-            // בודק את סוף האימייל
-            if (!System.Text.RegularExpressions.Regex.IsMatch(domain, @"^([-0-9A-Z]+\.)+([0-9A-Z]{2,4})$", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-            {
-                error = "Email domain is invalid.";
-                return false;
-            }
-            return true; // Email is valid
+            return true;
         }
+
         private void BackToLogin_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Login());

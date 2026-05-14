@@ -11,18 +11,29 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Header Section -->
         <StackPanel Grid.Row="0" Margin="0,0,0,40">
+            <!-- Back Button -->
+            <Button Click="Back_Click" 
+                    Style="{StaticResource MaterialDesignFlatButton}" 
+                    Foreground="#9BA1A6" 
+                    HorizontalAlignment="Left"
+                    Margin="-15,0,0,20">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ArrowLeft" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="BACK" FontWeight="Bold" FontSize="12"/>
+                </StackPanel>
+            </Button>
+
             <TextBlock Text="AUDITORIUM SELECTION" 
                        Foreground="#00C896" 
                        FontSize="11" 
                        FontWeight="Black" 
-                      
                        Margin="0,0,0,8"/>
             <TextBlock Text="Select Hall"
                        FontSize="56"
                        FontWeight="Black"
-                       Foreground="White"
-                       />
+                       Foreground="White"/>
         </StackPanel>
 
         <ListBox x:Name="HallListBox"
@@ -85,16 +96,13 @@
                             <TextBlock Text="{Binding HallName}"
                                        Foreground="White"
                                        FontSize="22"
-                                       FontWeight="Black"
-                                       />
+                                       FontWeight="Black"/>
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                 <materialDesign:PackIcon Kind="Seat" Foreground="#555E67" Width="14" Height="14" VerticalAlignment="Center" Margin="0,0,6,0"/>
                                 <TextBlock Text="{Binding AmountOfSeats, StringFormat='{}{0} PREMIUM SEATS AVAILABLE'}"
-           Foreground="#9BA1A6"
-           FontSize="11"
-           FontWeight="Bold"
-          />
-                               
+                                           Foreground="#9BA1A6"
+                                           FontSize="11"
+                                           FontWeight="Bold"/>
                             </StackPanel>
                         </StackPanel>
 

@@ -7,57 +7,66 @@ namespace HammerMtheater.UserControls
 {
     public partial class SeatControl : UserControl
     {
-        public int SeatNumber { get; }
-        public bool IsAvailable { get; }
+        public int SeatNumber { get; private set; }
+        public bool IsAvailable { get; private set; }
         public bool IsSelected { get; private set; }
 
-        public event RoutedEventHandler? SeatSelected;
+        public event RoutedEventHandler SeatSelected;
 
-        public SeatControl(int seatNumber, bool isAvailable)
+        // 1. Required empty constructor for WPF Visual Tree
+        public SeatControl()
         {
             InitializeComponent();
+        }
+
+        // 2. Chain to the empty constructor using : this()
+        public SeatControl(int seatNumber, bool isAvailable) : this()
+        {
             SeatNumber = seatNumber;
             IsAvailable = isAvailable;
+            IsSelected = false;
 
-            if (SeatText != null) SeatText.Text = seatNumber.ToString();
+            SeatText.Text = seatNumber.ToString();
+
             UpdateColor();
         }
 
         private void Seat_Click(object sender, MouseButtonEventArgs e)
         {
             if (!IsAvailable) return;
+
             SeatSelected?.Invoke(this, new RoutedEventArgs());
         }
 
         public void ToggleSelected()
         {
             if (!IsAvailable) return;
+
             IsSelected = !IsSelected;
             UpdateColor();
         }
 
         private void UpdateColor()
         {
-            if (Root == null || Backrest == null || SeatCushion == null) return;
-
             if (!IsAvailable)
             {
                 Backrest.Background = Brushes.Gray;
                 SeatCushion.Background = Brushes.Gray;
-                Root.Opacity = 0.5;
+                Root.Opacity = 0.45;
+                return;
             }
-            else if (IsSelected)
+
+            if (IsSelected)
             {
-                Backrest.Background = Brushes.Red;
-                SeatCushion.Background = Brushes.Red;
+                Backrest.Background = new SolidColorBrush(Color.FromRgb(0, 200, 150));
+                SeatCushion.Background = new SolidColorBrush(Color.FromRgb(0, 200, 150));
                 Root.Opacity = 1.0;
+                return;
             }
-            else
-            {
-                Backrest.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
-                SeatCushion.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
-                Root.Opacity = 1.0;
-            }
+
+            Backrest.Background = new SolidColorBrush(Color.FromRgb(37, 42, 49));
+            SeatCushion.Background = new SolidColorBrush(Color.FromRgb(37, 42, 49));
+            Root.Opacity = 1.0;
         }
     }
 }

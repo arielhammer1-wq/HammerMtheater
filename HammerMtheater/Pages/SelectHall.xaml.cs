@@ -45,5 +45,9 @@ namespace HammerMtheater.Pages
                 MessageBox.Show("Please select a hall");
             }
         }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

@@ -110,6 +110,11 @@
                         <Button Content="CANCEL" Click="BtnCancel_Click" 
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Foreground="#9BA1A6" Margin="0,10,0,0"/>
+                        <!-- Add this below the CANCEL button in your XAML -->
+                        <Button x:Name="BtnDelete" Content="DELETE USER" Click="BtnDelete_Click" 
+        Visibility="Collapsed"
+        Style="{StaticResource MaterialDesignFlatButton}"
+        Foreground="#FF5252" Margin="0,10,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </materialDesign:Card>
