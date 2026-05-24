@@ -127,9 +127,9 @@ namespace HammerMtheater.Pages
 
         private void skip_Click_user(object sender, RoutedEventArgs e)
         {
-            UsernameBox.Text = "test";
-            PasswordHidden.Password = "1234";
-            EmailBox.Text = "test@mail.com";
+            UsernameBox.Text = "ASDASD";
+            PasswordHidden.Password = "erererer";
+            EmailBox.Text = "asdasdasd@gmail.com";
 
             // Clear visible password if toggled
             if (_isPasswordVisible) TogglePassword_Click(null, null);

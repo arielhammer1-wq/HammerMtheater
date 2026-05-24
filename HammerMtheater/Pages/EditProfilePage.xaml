@@ -1,0 +1,144 @@
+﻿<Page x:Class="HammerMtheater.Pages.EditProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Background="#0B0E11"
+      Title="Edit Profile">
+
+    <Grid Margin="60,40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Back Header -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,35">
+            <Button Click="BackButton_Click"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    Foreground="#9BA1A6">
+                <materialDesign:PackIcon Kind="ArrowLeft"/>
+            </Button>
+
+            <TextBlock Text="EDIT ACCOUNT"
+                       VerticalAlignment="Center"
+                       Foreground="#00C896"
+                       FontWeight="Black"
+                       FontSize="12"
+                       Margin="15,0,0,0"/>
+        </DockPanel>
+
+        <!-- Main Card -->
+        <materialDesign:Card Grid.Row="1"
+                             Background="#16191E"
+                             Padding="40"
+                             UniformCornerRadius="20"
+                             MaxWidth="650"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             materialDesign:ElevationAssist.Elevation="Dp4">
+
+            <StackPanel>
+
+                <!-- Title -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,35">
+                    <materialDesign:PackIcon Kind="AccountEdit"
+                                             Foreground="#00C896"
+                                             Width="38"
+                                             Height="38"
+                                             VerticalAlignment="Center"/>
+
+                    <TextBlock Text="Update Profile"
+                               FontSize="34"
+                               Foreground="White"
+                               Margin="15,0,0,0"
+                               FontWeight="Black"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- User Id - Display only -->
+                <TextBox x:Name="TxtId"
+                         materialDesign:HintAssist.Hint="User ID"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,25"
+                         FontSize="16"
+                         Foreground="#777"
+                         BorderBrush="#252A31"
+                         IsReadOnly="True"
+                         IsEnabled="False"/>
+
+                <!-- Username -->
+                <TextBox x:Name="TxtUsername"
+                         materialDesign:HintAssist.Hint="Username"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,25"
+                         FontSize="16"
+                         Foreground="White"
+                         BorderBrush="#252A31"
+                         materialDesign:HintAssist.Foreground="#00C896"/>
+
+                <!-- Email -->
+                <TextBox x:Name="TxtEmail"
+                         materialDesign:HintAssist.Hint="Email"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,25"
+                         FontSize="16"
+                         Foreground="White"
+                         BorderBrush="#252A31"
+                         materialDesign:HintAssist.Foreground="#00C896"/>
+
+                <!-- Password -->
+                <PasswordBox x:Name="TxtPassword"
+                             materialDesign:HintAssist.Hint="Password"
+                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                             Margin="0,0,0,25"
+                             FontSize="16"
+                             Foreground="White"
+                             BorderBrush="#252A31"
+                             materialDesign:HintAssist.Foreground="#00C896"/>
+
+               
+
+                <!-- Buttons -->
+                <Button Content="SAVE CHANGES"
+                        Click="SaveButton_Click"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        Background="#00C896"
+                        Foreground="#0B0E11"
+                        Height="52"
+                        FontWeight="Black"
+                        materialDesign:ButtonAssist.CornerRadius="10"/>
+
+                <Button Content="CANCEL"
+                        Click="CancelButton_Click"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Foreground="#9BA1A6"
+                        Margin="0,12,0,0"
+                        FontWeight="Bold"/>
+
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay"
+              Grid.RowSpan="2"
+              Visibility="Collapsed"
+              Background="#CC0B0E11">
+
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Value="0"
+                             IsIndeterminate="True"
+                             Width="50"
+                             Height="50"
+                             Foreground="#00C896"/>
+
+                <TextBlock Text="Saving profile..."
+                           Foreground="White"
+                           FontWeight="Bold"
+                           Margin="0,20,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

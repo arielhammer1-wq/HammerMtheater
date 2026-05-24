@@ -9,66 +9,314 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Margin="0,0,0,40">
-            <Button Command="NavigationCommands.BrowseBack" 
+        <!-- Header -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,35">
+            <Button Click="BackButton_Click"
                     Style="{StaticResource MaterialDesignIconButton}" 
                     Foreground="#9BA1A6">
                 <materialDesign:PackIcon Kind="ArrowLeft" />
             </Button>
-            <TextBlock Text="MY ACCOUNT" VerticalAlignment="Center" 
-                       Foreground="#00C896" FontWeight="Black" 
-                       FontSize="12" Margin="15,0,0,0"/>
+
+            <TextBlock Text="MY ACCOUNT"
+                       VerticalAlignment="Center" 
+                       Foreground="#00C896"
+                       FontWeight="Black" 
+                       FontSize="12"
+                       Margin="15,0,0,0"/>
         </DockPanel>
 
-        <materialDesign:Card Grid.Row="1" Background="#16191E" 
-                             UniformCornerRadius="20" Padding="30" 
-                             Margin="0,0,0,40">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:Card Width="80" Height="80" UniformCornerRadius="40" 
+        <!-- Profile Card -->
+        <materialDesign:Card Grid.Row="1"
+                             Background="#16191E" 
+                             UniformCornerRadius="20"
+                             Padding="30" 
+                             Margin="0,0,0,30"
+                             materialDesign:ElevationAssist.Elevation="Dp3">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:Card Grid.Column="0"
+                                     Width="80"
+                                     Height="80"
+                                     UniformCornerRadius="40" 
                                      Background="#1A00C896">
-                    <materialDesign:PackIcon Kind="Account" Width="40" Height="40" 
-                                             Foreground="#00C896" HorizontalAlignment="Center" 
+                    <materialDesign:PackIcon Kind="Account"
+                                             Width="40"
+                                             Height="40" 
+                                             Foreground="#00C896"
+                                             HorizontalAlignment="Center" 
                                              VerticalAlignment="Center"/>
                 </materialDesign:Card>
 
-                <StackPanel VerticalAlignment="Center" Margin="25,0,0,0">
-                    <TextBlock x:Name="UserNameText" Text="John Doe" 
-                               Foreground="White" FontSize="28" FontWeight="Black"/>
-                    <TextBlock x:Name="UserEmailText" Text="j.doe@example.com" 
-                               Foreground="#555E67" FontSize="14"/>
+                <StackPanel Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Margin="25,0,0,0">
+                    <TextBlock x:Name="UserNameText"
+                               Text="Username" 
+                               Foreground="White"
+                               FontSize="28"
+                               FontWeight="Black"/>
+
+                    <TextBlock x:Name="UserEmailText"
+                               Text="email@example.com" 
+                               Foreground="#555E67"
+                               FontSize="14"
+                               Margin="0,5,0,0"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" >
-                    <Button Content="EDIT PROFILE" Style="{StaticResource MaterialDesignFlatButton}" 
-                            Foreground="#9BA1A6" FontSize="11" FontWeight="Bold"/>
+                <StackPanel Grid.Column="2"
+                            VerticalAlignment="Center">
+                    <Button Content="EDIT PROFILE"
+                            Click="EditProfile_Click"
+                            Style="{StaticResource MaterialDesignFlatButton}" 
+                            Foreground="#9BA1A6"
+                            FontSize="11"
+                            FontWeight="Bold"/>
+
+                    <Button Content="VIEW ALL TICKETS"
+                            Click="ViewAllTickets_Click"
+                            Style="{StaticResource MaterialDesignFlatButton}" 
+                            Foreground="#00C896"
+                            FontSize="11"
+                            FontWeight="Bold"
+                            Margin="0,8,0,0"/>
                 </StackPanel>
-            </StackPanel>
+            </Grid>
         </materialDesign:Card>
 
-        <Grid Grid.Row="2">
+        <!-- Stats Cards -->
+        <Grid Grid.Row="2" Margin="0,0,0,35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Grid.Column="0"
+                                 Background="#16191E"
+                                 UniformCornerRadius="18"
+                                 Padding="22"
+                                 Margin="0,0,15,0">
+                <StackPanel>
+                    <TextBlock Text="TOTAL TICKETS"
+                               Foreground="#555E67"
+                               FontSize="10"
+                               FontWeight="Black"/>
+                    <TextBlock x:Name="TotalTicketsText"
+                               Text="0"
+                               Foreground="White"
+                               FontSize="30"
+                               FontWeight="Black"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="1"
+                                 Background="#16191E"
+                                 UniformCornerRadius="18"
+                                 Padding="22"
+                                 Margin="15,0,15,0">
+                <StackPanel>
+                    <TextBlock Text="TOTAL SPENT"
+                               Foreground="#555E67"
+                               FontSize="10"
+                               FontWeight="Black"/>
+                    <TextBlock x:Name="TotalSpentText"
+                               Text="₪0"
+                               Foreground="White"
+                               FontSize="30"
+                               FontWeight="Black"
+                               Margin="0,8,0,0"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="2"
+                                 Background="#16191E"
+                                 UniformCornerRadius="18"
+                                 Padding="22"
+                                 Margin="15,0,15,0">
+                <StackPanel>
+                    <TextBlock Text="FAVORITE THEATER"
+                               Foreground="#555E67"
+                               FontSize="10"
+                               FontWeight="Black"/>
+                    <TextBlock x:Name="FavoriteTheaterText"
+                               Text="None"
+                               Foreground="White"
+                               FontSize="18"
+                               FontWeight="Black"
+                               Margin="0,12,0,0"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="3"
+                                 Background="#16191E"
+                                 UniformCornerRadius="18"
+                                 Padding="22"
+                                 Margin="15,0,0,0">
+                <StackPanel>
+                    <TextBlock Text="LAST MOVIE"
+                               Foreground="#555E67"
+                               FontSize="10"
+                               FontWeight="Black"/>
+                    <TextBlock x:Name="LastMovieText"
+                               Text="None"
+                               Foreground="White"
+                               FontSize="18"
+                               FontWeight="Black"
+                               Margin="0,12,0,0"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+
+        <!-- Recent Bookings -->
+        <Grid Grid.Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="ACTIVE BOOKINGS" Foreground="White" 
-                       FontWeight="Black" FontSize="16" Margin="0,0,0,20"/>
+            <DockPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="RECENT BOOKINGS"
+                           Foreground="White" 
+                           FontWeight="Black"
+                           FontSize="16"
+                           DockPanel.Dock="Left"/>
 
-            <ListBox Grid.Row="1" x:Name="TicketsList" Background="Transparent" 
-                     BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <TextBlock Text="Showing your latest 3 tickets"
+                           Foreground="#555E67"
+                           FontSize="12"
+                           HorizontalAlignment="Right"
+                           DockPanel.Dock="Right"/>
+            </DockPanel>
+
+            <ListBox Grid.Row="1"
+                     x:Name="RecentTicketsList"
+                     Background="Transparent" 
+                     BorderThickness="0"
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     HorizontalContentAlignment="Stretch">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0,0,0,15"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card Background="#16191E"
+                                             UniformCornerRadius="16"
+                                             Padding="22"
+                                             BorderBrush="#252A31"
+                                             BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Movie.MovieName}"
+                                               Foreground="White"
+                                               FontSize="20"
+                                               FontWeight="Black"/>
+
+                                    <TextBlock Text="{Binding Theater.NameOfTheater}"
+                                               Foreground="#9BA1A6"
+                                               FontSize="13"
+                                               Margin="0,6,0,0"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="HALL"
+                                               Foreground="#555E67"
+                                               FontSize="9"
+                                               FontWeight="Black"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding Hall.HallName}"
+                                               Foreground="White"
+                                               FontSize="15"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="SEAT"
+                                               Foreground="#555E67"
+                                               FontSize="9"
+                                               FontWeight="Black"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding SeatNumber}"
+                                               Foreground="#00C896"
+                                               FontSize="24"
+                                               FontWeight="Black"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="3"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="PRICE"
+                                               Foreground="#555E67"
+                                               FontSize="9"
+                                               FontWeight="Black"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TicketPrice, StringFormat=₪{0}}"
+                                               Foreground="White"
+                                               FontSize="18"
+                                               FontWeight="Black"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
 
-        <Grid x:Name="LoadingOverlay" Visibility="Collapsed" Background="#CC0B0E11" Grid.RowSpan="3">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay"
+              Visibility="Collapsed"
+              Background="#CC0B0E11"
+              Grid.RowSpan="4">
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
                 <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
-                             Value="0" IsIndeterminate="True" 
-                             Width="50" Height="50" Foreground="#00C896"/>
-                <TextBlock Text="Loading your tickets..." Margin="0,20,0,0" 
-                           Foreground="White" FontWeight="Bold"/>
+                             Value="0"
+                             IsIndeterminate="True" 
+                             Width="50"
+                             Height="50"
+                             Foreground="#00C896"/>
+
+                <TextBlock Text="Loading your profile..."
+                           Margin="0,20,0,0" 
+                           Foreground="White"
+                           FontWeight="Bold"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace HammerMtheater.Pages
 {
@@ -16,78 +15,112 @@ namespace HammerMtheater.Pages
         public UserProfile()
         {
             InitializeComponent();
-            this.Loaded += UserProfile_Loaded;
+            Loaded += UserProfile_Loaded;
         }
 
         private async void UserProfile_Loaded(object sender, RoutedEventArgs e)
         {
-            await LoadUserData();
-             LoadTickets();
+            await LoadProfile();
         }
 
-        private async Task LoadUserData()
+        private async Task LoadProfile()
         {
-            try
-            {
-                if (App.CurrentUser != null)
-                {
-                    UserNameText.Text = App.CurrentUser.Username;
-                    UserEmailText.Text = App.CurrentUser.Email;
-                }
-                else
-                {
-                    MessageBox.Show("Error: Session expired or no user logged in.", "Authentication Error");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error loading profile: " + ex.Message);
-            }
-        }
-
-        private async void LoadTickets()
-        {
-            // 1. Start Loader (Ensure you have a UI element named LoadingOverlay in your XAML)
-            if (LoadingOverlay != null) LoadingOverlay.Visibility = Visibility.Visible;
+            LoadingOverlay.Visibility = Visibility.Visible;
 
             try
             {
-                // 2. Fetch data
-                TicketList allTickets = await _api.GetAllTickets();
+                if (App.CurrentUser == null)
+                {
+                    MessageBox.Show("Error: no user logged in.", "Authentication Error");
+                    NavigationService.Navigate(new Login());
+                    return;
+                }
 
-                // 3. Filter data
-                var myTickets = allTickets
-                    .Where(t => t.User.Id == App.CurrentUser.Id)
-                    .ToList();
+                LoadUserData();
 
-                // 4. Bind to UI
-                TicketsList.ItemsSource = myTickets;
+                TicketList myTickets = await _api.GetTicketsByUserId(App.CurrentUser.Id);
 
-                // Small delay so the user actually sees the beautiful loader transition
-                await Task.Delay(500);
+                LoadStats(myTickets);
+                LoadRecentTickets(myTickets);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Could not load tickets: " + ex.Message);
+                MessageBox.Show("Could not load profile: " + ex.Message);
             }
             finally
             {
-                // 5. Hide Loader
-                if (LoadingOverlay != null) LoadingOverlay.Visibility = Visibility.Collapsed;
+                LoadingOverlay.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void LoadUserData()
+        {
+            UserNameText.Text = App.CurrentUser.Username;
+            UserEmailText.Text = App.CurrentUser.Email;
+        }
+
+        private void LoadStats(TicketList myTickets)
+        {
+            if (myTickets == null || myTickets.Count == 0)
+            {
+                TotalTicketsText.Text = "0";
+                TotalSpentText.Text = "₪0";
+                FavoriteTheaterText.Text = "None";
+                LastMovieText.Text = "None";
+                return;
+            }
+
+            int totalTickets = myTickets.Count;
+            int totalSpent = myTickets.Sum(t => t.TicketPrice);
+
+            string favoriteTheater = myTickets
+                .Where(t => t.Theater != null)
+                .GroupBy(t => t.Theater.NameOfTheater)
+                .OrderByDescending(g => g.Count())
+                .FirstOrDefault()?.Key ?? "None";
+
+            string lastMovie = myTickets
+                .OrderByDescending(t => t.Id)
+                .FirstOrDefault()?.Movie?.MovieName ?? "None";
+
+            TotalTicketsText.Text = totalTickets.ToString();
+            TotalSpentText.Text = $"₪{totalSpent}";
+            FavoriteTheaterText.Text = favoriteTheater;
+            LastMovieText.Text = lastMovie;
+        }
+
+        private void LoadRecentTickets(TicketList myTickets)
+        {
+            if (myTickets == null)
+            {
+                RecentTicketsList.ItemsSource = null;
+                return;
+            }
+
+            var recentTickets = myTickets
+                .OrderByDescending(t => t.Id)
+                .Take(3)
+                .ToList();
+
+            RecentTicketsList.ItemsSource = recentTickets;
+        }
+
+        private void ViewAllTickets_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MyTickets());
         }
 
         private void EditProfile_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Profile editing coming soon!", "Information");
+            NavigationService.Navigate(new EditProfilePage());
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack)
-            {
                 NavigationService.GoBack();
-            }
+            else
+                NavigationService.Navigate(new HomePage());
         }
     }
 }

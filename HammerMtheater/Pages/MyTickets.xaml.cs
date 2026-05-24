@@ -18,26 +18,15 @@ namespace HammerMtheater.Pages
 
         private async void LoadTickets()
         {
-            // 1. Start Loader
             LoadingOverlay.Visibility = Visibility.Visible;
 
             try
             {
                 MoviesFunctions api = new MoviesFunctions();
 
-                // 2. Fetch data (This is the long part)
-                TicketList allTickets = await api.GetAllTickets();
+                TicketList myTickets = await api.GetTicketsByUserId(App.CurrentUser.Id);
 
-                // 3. Filter data
-                var myTickets = allTickets
-                    .Where(t => t.User.Id == App.CurrentUser.Id)
-                    .ToList();
-
-                // 4. Bind to UI
                 TicketsList.ItemsSource = myTickets;
-
-                // Small delay so the user actually sees the beautiful loader transition
-                await Task.Delay(500);
             }
             catch (Exception ex)
             {
@@ -45,7 +34,6 @@ namespace HammerMtheater.Pages
             }
             finally
             {
-                // 5. Hide Loader
                 LoadingOverlay.Visibility = Visibility.Collapsed;
             }
         }

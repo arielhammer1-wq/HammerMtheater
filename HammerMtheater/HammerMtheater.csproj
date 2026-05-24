@@ -27,10 +27,10 @@
 
   <ItemGroup>
     <Reference Include="Model">
-      <HintPath>..\..\..\Arielproject-master (1)\Arielproject-master\MoviesInterface\bin\Debug\net8.0\Model.dll</HintPath>
+      <HintPath>..\..\Arielproject222\MoviesInterface\bin\Debug\net8.0\Model.dll</HintPath>
     </Reference>
     <Reference Include="MoviesInterface">
-      <HintPath>..\..\..\Arielproject-master (1)\Arielproject-master\MoviesInterface\bin\Debug\net8.0\MoviesInterface.dll</HintPath>
+      <HintPath>..\..\Arielproject222\MoviesInterface\bin\Debug\net8.0\MoviesInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
 

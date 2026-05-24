@@ -40,6 +40,11 @@
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
                         <!-- This button triggers the Support method -->
                         <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="#9BA1A6" Content="SUPPORT" Margin="0,0,20,0" Click="Support"/>
+                        <Button VerticalAlignment="Bottom" Margin="20,40" 
+         Content="SYSTEM LOGOUT" 
+         Style="{StaticResource MaterialDesignFlatButton}" 
+         Foreground="#555E67" FontSize="11" FontWeight="Bold"
+         Click="Logout_Click"/>
 
                         <materialDesign:Card UniformCornerRadius="12" Width="45" Height="45" Background="#1AFFFFFF" 
                                              materialDesign:ElevationAssist.Elevation="Dp1">

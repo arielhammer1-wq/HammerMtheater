@@ -82,5 +82,10 @@ namespace HammerMtheater.Pages
             // Use the class name 'DialogHost' directly
             await DialogHost.Show(content, "RootDialog");
         }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Login());
+        }
     }
 }
